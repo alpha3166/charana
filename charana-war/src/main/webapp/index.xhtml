@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+	<title>CharAna - A Character Analyzer</title>
+</h:head>
+<h:body>
+	<h1>CharAna - A Character Analyzer</h1>
+	<h:form>
+		<h:inputText value="#{analyzer.string}" />
+		<h:commandButton type="submit" action="#{analyzer.analyze}"
+			value="Analyze" />
+	</h:form>
+	<pre>
+		<h:outputText value="#{analyzer.result}" />
+	</pre>
+</h:body>
+</html>
