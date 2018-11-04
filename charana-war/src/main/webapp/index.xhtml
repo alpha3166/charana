@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html">
-<h:head>
-	<title>CharAna - A Character Analyzer</title>
-</h:head>
-<h:body>
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<head>
+<title>CharAna - A Character Analyzer</title>
+</head>
+<body>
 	<h1>CharAna - A Character Analyzer</h1>
-	<h:form>
-		<h:inputText value="#{analyzer.string}" />
-		<h:commandButton type="submit" action="#{analyzer.analyze}"
-			value="Analyze" />
-	</h:form>
-	<pre>
-		<h:outputText value="#{analyzer.result}" />
-	</pre>
-</h:body>
+	<form jsf:id="form">
+		<input type="text" jsf:value="#{analyzer.string}" />
+		<button jsf:action="#{analyzer.analyze}">Analyze</button>
+	</form>
+	<pre>#{analyzer.result}</pre>
+</body>
 </html>
