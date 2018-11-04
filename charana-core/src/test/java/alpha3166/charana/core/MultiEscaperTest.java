@@ -32,8 +32,8 @@ class MultiEscaperTest {
 			assertEquals(ESCAPED_HTML4, actual.get("HTML4"));
 			assertEquals(ESCAPED_JAVA, actual.get("Java"));
 			assertEquals(ESCAPED_JSON, actual.get("JSON"));
-			assertEquals(ESCAPED_XML10, actual.get("XML1.0"));
-			assertEquals(ESCAPED_XML11, actual.get("XML1.1"));
+			assertEquals(ESCAPED_XML10, actual.get("XML10"));
+			assertEquals(ESCAPED_XML11, actual.get("XML11"));
 			assertEquals(ESCAPED_XSI, actual.get("XSI"));
 		}
 

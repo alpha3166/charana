@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Unicoder {
-	public static String[] compose(String codePointString) {
+	public static CharInfo compose(String codePointString) {
 		String[] tokens = codePointString.trim().replaceFirst("<(.*)>", "$1").split("[ ,]+");
 		if (tokens.length == 0) {
 			return null;
@@ -42,11 +42,11 @@ public class Unicoder {
 			string.append(Character.toChars(codePoint));
 		}
 
-		return new String[] { normalized.toString(), string.toString() };
+		return new CharInfo(normalized.toString(), string.toString());
 	}
 
-	public static List<String> decompose(String string) {
-		List<String> result = new ArrayList<>();
+	public static List<CharInfo> decompose(String string) {
+		List<CharInfo> result = new ArrayList<>();
 		for (int i = 0; i < string.length(); i++) {
 			if (Character.isLowSurrogate(string.charAt(i))) {
 				continue;
@@ -59,7 +59,7 @@ public class Unicoder {
 			}
 			String codePoint = String.format("U+%04X", string.codePointAt(i));
 			String name = Character.getName(string.codePointAt(i));
-			result.add(String.format("%s: %s %s", character, codePoint, name));
+			result.add(new CharInfo(character, codePoint + " " + name));
 		}
 		return result;
 	}

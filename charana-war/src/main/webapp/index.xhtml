@@ -1,17 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <head>
 <title>CharAna - A Character Analyzer</title>
 </head>
 <body>
 	<h1>CharAna - A Character Analyzer</h1>
+	<f:metadata>
+		<f:viewParam name="string" value="#{analyzer.string}" />
+		<f:viewAction action="#{analyzer.analyze}" />
+	</f:metadata>
 	<form jsf:id="form">
 		<input type="text" jsf:value="#{analyzer.string}" />
 		<button jsf:action="#{analyzer.analyze}">Analyze</button>
 	</form>
-	<pre>#{analyzer.result}</pre>
+	<ui:fragment rendered="#{analyzer.composed != null}">
+		<h2>Can be a sequence of Unicode code points:</h2>
+		<ul>
+			<li>#{analyzer.composed.label}: <a
+				href="?string=#{analyzer.composed.value}">#{analyzer.composed.value}</a></li>
+		</ul>
+	</ui:fragment>
+	<ui:fragment rendered="#{analyzer.unescaped.size() > 0}">
+		<h2>Can be unescaped to:</h2>
+		<ul>
+			<ui:repeat var="item" value="#{analyzer.unescaped}">
+				<li>#{item.label}: <a href="?string=#{item.value}">#{item.value}</a></li>
+			</ui:repeat>
+		</ul>
+	</ui:fragment>
+	<ui:fragment rendered="#{analyzer.decoded.size() > 0}">
+		<h2>Can be a hexadecimal representation of:</h2>
+		<ul>
+			<ui:repeat var="item" value="#{analyzer.decoded}">
+				<li>#{item.label}: <a href="?string=#{item.value}">#{item.value}</a></li>
+			</ui:repeat>
+		</ul>
+	</ui:fragment>
+	<ui:fragment rendered="#{analyzer.decomposed.size() > 0}">
+		<h2>Consists of:</h2>
+		<ul>
+			<ui:repeat var="item" value="#{analyzer.decomposed}">
+				<li>#{item.label}: #{item.value}</li>
+			</ui:repeat>
+		</ul>
+	</ui:fragment>
+	<ui:fragment rendered="#{analyzer.escaped.size() > 0}">
+		<h2>Can be escaped to:</h2>
+		<ul>
+			<ui:repeat var="item" value="#{analyzer.escaped}">
+				<li>#{item.label}: #{item.value}</li>
+			</ui:repeat>
+		</ul>
+	</ui:fragment>
+	<ui:fragment rendered="#{analyzer.encoded.size() > 0}">
+		<h2>Can be encoded to:</h2>
+		<ul>
+			<ui:repeat var="item" value="#{analyzer.encoded}">
+				<li>#{item.label}: #{item.value}</li>
+			</ui:repeat>
+		</ul>
+	</ui:fragment>
 </body>
 </html>

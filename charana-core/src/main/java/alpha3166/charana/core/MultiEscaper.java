@@ -1,13 +1,13 @@
 package alpha3166.charana.core;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.apache.commons.text.StringEscapeUtils;
 
 public class MultiEscaper {
-	public static Map<String, String> escape(String string) {
-		Map<String, String> result = new LinkedHashMap<>();
+	public static SortedMap<String, String> escape(String string) {
+		SortedMap<String, String> result = new TreeMap<>();
 
 		String escapedCsv = StringEscapeUtils.escapeCsv(string);
 		if (!escapedCsv.equals(string)) {
@@ -41,12 +41,12 @@ public class MultiEscaper {
 
 		String escapedXml10 = StringEscapeUtils.escapeXml10(string);
 		if (!escapedXml10.equals(string)) {
-			result.put("XML1.0", escapedXml10);
+			result.put("XML10", escapedXml10);
 		}
 
 		String escapedXml11 = StringEscapeUtils.escapeXml11(string);
 		if (!escapedXml11.equals(string)) {
-			result.put("XML1.1", escapedXml11);
+			result.put("XML11", escapedXml11);
 		}
 
 		String escapedXSI = StringEscapeUtils.escapeXSI(string);
@@ -57,8 +57,8 @@ public class MultiEscaper {
 		return result;
 	}
 
-	public static Map<String, String> unescape(String string) {
-		Map<String, String> result = new LinkedHashMap<>();
+	public static SortedMap<String, String> unescape(String string) {
+		SortedMap<String, String> result = new TreeMap<>();
 
 		String unescapedCsv = StringEscapeUtils.unescapeCsv(string);
 		if (!unescapedCsv.equals(string)) {

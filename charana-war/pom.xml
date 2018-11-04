@@ -15,7 +15,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>alpha3166</groupId>
-			<artifactId>charana-cli</artifactId>
+			<artifactId>charana-core</artifactId>
 			<version>0.1.0</version>
 		</dependency>
 	</dependencies>

@@ -3,6 +3,7 @@ package alpha3166.charana.cli;
 import java.nio.charset.Charset;
 import java.util.Map;
 
+import alpha3166.charana.core.CharInfo;
 import alpha3166.charana.core.MultiEncoder;
 import alpha3166.charana.core.MultiEscaper;
 import alpha3166.charana.core.Unicoder;
@@ -21,10 +22,10 @@ public class CharanaCLI {
 		result.append(string + "\n");
 		result.append("\n");
 
-		String[] decodedAsCodePointResult = Unicoder.compose(string);
+		CharInfo decodedAsCodePointResult = Unicoder.compose(string);
 		if (decodedAsCodePointResult != null) {
 			result.append("# Can be a sequence of Unicode code points:\n");
-			result.append(decodedAsCodePointResult[0] + ": " + decodedAsCodePointResult[1] + "\n");
+			result.append(decodedAsCodePointResult.getLabel() + ": " + decodedAsCodePointResult.getValue() + "\n");
 			result.append("\n");
 		}
 
@@ -47,8 +48,8 @@ public class CharanaCLI {
 		}
 
 		result.append("# Consists of:\n");
-		for (String item : Unicoder.decompose(string)) {
-			result.append(item + "\n");
+		for (CharInfo item : Unicoder.decompose(string)) {
+			result.append(item.getLabel() + ": " + item.getValue() + "\n");
 		}
 		result.append("\n");
 
@@ -70,5 +71,4 @@ public class CharanaCLI {
 
 		return result.toString();
 	}
-
 }
