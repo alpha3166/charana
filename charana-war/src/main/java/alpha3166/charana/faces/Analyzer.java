@@ -1,12 +1,11 @@
 package alpha3166.charana.faces;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.inject.Named;
 
 import alpha3166.charana.cli.CharanaCLI;
 
-@ManagedBean
-@RequestScoped
+@Named
+@javax.enterprise.context.RequestScoped // Must be FQCN due to GlassFish bug
 public class Analyzer {
 	private String string;
 	private String result;
