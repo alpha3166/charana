@@ -4,6 +4,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.inject.Named;
 
@@ -18,10 +19,10 @@ public class Analyzer {
 	private String string;
 	private CharInfo composed;
 	private List<CharInfo> decomposed = new ArrayList<>();
-	private List<CharInfo> escaped = new ArrayList<>();
-	private List<CharInfo> unescaped = new ArrayList<>();
-	private List<CharInfo> encoded = new ArrayList<>();
-	private List<CharInfo> decoded = new ArrayList<>();
+	private Map<String, String> escaped = new TreeMap<>();
+	private Map<String, String> unescaped = new TreeMap<>();
+	private Map<Charset, String> encoded = new TreeMap<>();
+	private Map<Charset, String> decoded = new TreeMap<>();
 
 	public String getString() {
 		return string;
@@ -39,19 +40,19 @@ public class Analyzer {
 		return decomposed;
 	}
 
-	public List<CharInfo> getEscaped() {
+	public Map<String, String> getEscaped() {
 		return escaped;
 	}
 
-	public List<CharInfo> getUnescaped() {
+	public Map<String, String> getUnescaped() {
 		return unescaped;
 	}
 
-	public List<CharInfo> getEncoded() {
+	public Map<Charset, String> getEncoded() {
 		return encoded;
 	}
 
-	public List<CharInfo> getDecoded() {
+	public Map<Charset, String> getDecoded() {
 		return decoded;
 	}
 
@@ -59,31 +60,21 @@ public class Analyzer {
 		if (string == null) {
 			return null;
 		}
-
+		if (string.isEmpty()) {
+			composed = null;
+			decomposed = new ArrayList<>();
+			escaped = new TreeMap<>();
+			unescaped = new TreeMap<>();
+			encoded = new TreeMap<>();
+			decoded = new TreeMap<>();
+			return null;
+		}
 		composed = Unicoder.compose(string);
-
 		decomposed = Unicoder.decompose(string);
-
-		Map<String, String> escapedMap = MultiEscaper.escape(string);
-		for (String label : escapedMap.keySet()) {
-			escaped.add(new CharInfo(label, escapedMap.get(label)));
-		}
-
-		Map<String, String> unescapedMap = MultiEscaper.unescape(string);
-		for (String label : unescapedMap.keySet()) {
-			unescaped.add(new CharInfo(label, unescapedMap.get(label)));
-		}
-
-		Map<Charset, String> encodedMap = MultiEncoder.encode(string);
-		for (Charset charset : encodedMap.keySet()) {
-			encoded.add(new CharInfo(charset.name(), encodedMap.get(charset)));
-		}
-
-		Map<Charset, String> decodedMap = MultiEncoder.decode(string);
-		for (Charset charset : decodedMap.keySet()) {
-			decoded.add(new CharInfo(charset.name(), decodedMap.get(charset)));
-		}
-
+		escaped = MultiEscaper.escape(string);
+		unescaped = MultiEscaper.unescape(string);
+		encoded = MultiEncoder.encode(string);
+		decoded = MultiEncoder.decode(string);
 		return null;
 	}
 }
