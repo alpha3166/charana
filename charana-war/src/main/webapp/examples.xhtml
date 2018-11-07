@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>CharAna Examples</title>
+</head>
+<body>
+	<h1>CharAna Examples</h1>
+
+	<input type="text" value="漢字" />
+	<button>↓</button>
+	<ul>
+		<li>漢: U+6F22 CJK UNIFIED IDEOGRAPHS 6F22</li>
+		<li>字: U+5B57 CJK UNIFIED IDEOGRAPHS 5B57</li>
+	</ul>
+	<ul>
+		<li>Java: \u6F22\u5B57</li>
+	</ul>
+	<ul>
+		<li>Shift_JIS: 8abf8e9a</li>
+		<li>UTF-8: e6bca2e5ad97</li>
+	</ul>
+
+	<input type="text" value="&lt;U+6F22,U+5B57&gt;" />
+	<button>↓</button>
+	<ul>
+		<li>&lt;U+6F22,U+5B57&gt;: 漢字</li>
+	</ul>
+
+	<input type="text" value="6f22 5b57" />
+	<button>↓</button>
+	<ul>
+		<li>&lt;U+6F22,U+5B57&gt;: 漢字</li>
+	</ul>
+
+	<input type="text" value="48 61 6E" />
+	<button>↓</button>
+	<ul>
+		<li>&lt;U+0048,U+0061,U+006E&gt;: Han</li>
+	</ul>
+
+	<input type="text" value="e6bca2e5ad97" />
+	<button>↓</button>
+	<ul>
+		<li>UTF-8: 漢字</li>
+	</ul>
+
+	<input type="text" value="\u6F22\u5B57" />
+	<button>↓</button>
+	<ul>
+		<li>Java: 漢字</li>
+	</ul>
+
+	<input type="text" value="&amp;#x6F22;&amp;#x5B57;" />
+	<button>↓</button>
+	<ul>
+		<li>XML: 漢字</li>
+	</ul>
+
+</body>
+</html>
