@@ -1,29 +1,29 @@
 package alpha3166.charana.faces;
 
 import java.nio.charset.Charset;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.inject.Named;
 
-import alpha3166.charana.core.CharInfo;
+import alpha3166.charana.core.CodePoint;
 import alpha3166.charana.core.MultiEncoder;
 import alpha3166.charana.core.MultiEscaper;
-import alpha3166.charana.core.Unicoder;
 
 @Named
 @javax.enterprise.context.RequestScoped // Must be FQCN due to GlassFish bug
 public class Analyzer {
 	private String string;
-	private CharInfo composed;
-	private List<CharInfo> composedDetail;
-	private List<CharInfo> decomposed = new ArrayList<>();
-	private Map<String, String> escaped = new TreeMap<>();
-	private Map<String, String> unescaped = new TreeMap<>();
-	private Map<Charset, String> encoded = new TreeMap<>();
-	private Map<Charset, String> decoded = new TreeMap<>();
+	private List<CodePoint> parsed;
+	private String parsedComposed;
+	private String parsedFormatted;
+	private List<CodePoint> decomposed = Collections.emptyList();
+	private String decomposedFormatted;
+	private Map<String, String> escaped = Collections.emptyMap();
+	private Map<String, String> unescaped = Collections.emptyMap();
+	private Map<Charset, String> encoded = Collections.emptyMap();
+	private Map<Charset, String> decoded = Collections.emptyMap();
 
 	public String getString() {
 		return string;
@@ -33,16 +33,24 @@ public class Analyzer {
 		this.string = string;
 	}
 
-	public CharInfo getComposed() {
-		return composed;
+	public List<CodePoint> getParsed() {
+		return parsed;
 	}
 
-	public List<CharInfo> getComposedDetail() {
-		return composedDetail;
+	public String getParsedComposed() {
+		return parsedComposed;
 	}
 
-	public List<CharInfo> getDecomposed() {
+	public String getParsedFormatted() {
+		return parsedFormatted;
+	}
+
+	public List<CodePoint> getDecomposed() {
 		return decomposed;
+	}
+
+	public String getDecomposedFormatted() {
+		return decomposedFormatted;
 	}
 
 	public Map<String, String> getEscaped() {
@@ -65,21 +73,30 @@ public class Analyzer {
 		if (string == null) {
 			return null;
 		}
+
+		parsed = null;
+		parsedComposed = null;
+		parsedFormatted = null;
+		decomposed = Collections.emptyList();
+		decomposedFormatted = null;
+		escaped = Collections.emptyMap();
+		unescaped = Collections.emptyMap();
+		encoded = Collections.emptyMap();
+		decoded = Collections.emptyMap();
+
 		if (string.isEmpty()) {
-			composed = null;
-			composedDetail = null;
-			decomposed = new ArrayList<>();
-			escaped = new TreeMap<>();
-			unescaped = new TreeMap<>();
-			encoded = new TreeMap<>();
-			decoded = new TreeMap<>();
 			return null;
 		}
-		composed = Unicoder.compose(string);
-		if (composed != null) {
-			composedDetail = Unicoder.decompose(composed.getValue());
+
+		parsed = CodePoint.parse(string);
+		if (!parsed.isEmpty()) {
+			parsedComposed = CodePoint.compose(parsed);
+			parsedFormatted = CodePoint.format(parsed);
 		}
-		decomposed = Unicoder.decompose(string);
+		decomposed = CodePoint.decompose(string);
+		if (!decomposed.isEmpty()) {
+			decomposedFormatted = CodePoint.format(decomposed);
+		}
 		escaped = MultiEscaper.escape(string);
 		unescaped = MultiEscaper.unescape(string);
 		encoded = MultiEncoder.encode(string);

@@ -21,58 +21,75 @@
 		<input type="text" jsf:value="#{analyzer.string}" />
 		<button jsf:action="#{analyzer.analyze}">Analyze</button>
 	</form>
-	<ui:fragment rendered="#{analyzer.composed != null}">
-		<h2>Can be a sequence of Unicode code points:</h2>
+	<ui:fragment rendered="#{analyzer.parsed.size() > 0}">
+		<h2>Can be a code point notation of:</h2>
 		<ul>
-			<li><a href="?string=#{analyzer.composed.value}">#{analyzer.composed.value}</a>
-				<ul>
-					<ui:repeat var="entry" value="#{analyzer.composedDetail}">
-						<li>#{entry.label}: #{entry.value}</li>
-					</ui:repeat>
-				</ul></li>
+			<ui:fragment rendered="#{analyzer.parsed.size() == 1}">
+				<ui:repeat var="item" value="#{analyzer.parsed}">
+					<li><a href="?string=#{analyzer.parsedComposed}">#{item.char}</a>:
+						#{item.hex} #{item.name}</li>
+				</ui:repeat>
+			</ui:fragment>
+			<ui:fragment rendered="#{analyzer.parsed.size() > 1}">
+				<li><a href="?string=#{analyzer.parsedComposed}">#{analyzer.parsedComposed}</a>
+					#{analyzer.parsedFormatted}
+					<ul>
+						<ui:repeat var="item" value="#{analyzer.parsed}">
+							<li>#{item.char}: #{item.hex} #{item.name}</li>
+						</ui:repeat>
+					</ul></li>
+			</ui:fragment>
 		</ul>
 	</ui:fragment>
 	<ui:fragment rendered="#{analyzer.unescaped.size() > 0}">
-		<h2>Can be unescaped to:</h2>
+		<h2>Can be an escaped notation of:</h2>
 		<ul>
-			<ui:repeat var="entry"
+			<ui:repeat var="item"
 				value="#{analyzer.unescaped.entrySet().toArray()}">
-				<li>#{entry.key}: <a href="?string=#{entry.value}">#{entry.value}</a></li>
+				<li>#{item.key}: <a href="?string=#{item.value}">#{item.value}</a></li>
 			</ui:repeat>
 		</ul>
 	</ui:fragment>
 	<ui:fragment rendered="#{analyzer.decoded.size() > 0}">
-		<h2>Can be a hexadecimal representation of:</h2>
+		<h2>Can be a hexadecimal notation of:</h2>
 		<ul>
-			<ui:repeat var="entry"
+			<ui:repeat var="item"
 				value="#{analyzer.decoded.entrySet().toArray()}">
-				<li>#{entry.key.name()}: <a href="?string=#{entry.value}">#{entry.value}</a></li>
+				<li>#{item.key.name()}: <a href="?string=#{item.value}">#{item.value}</a></li>
 			</ui:repeat>
 		</ul>
 	</ui:fragment>
 	<ui:fragment rendered="#{analyzer.decomposed.size() > 0}">
-		<h2>Consists of:</h2>
+		<ui:fragment rendered="#{analyzer.decomposed.size() == 1}">
+			<h2>Code point:</h2>
+		</ui:fragment>
+		<ui:fragment rendered="#{analyzer.decomposed.size() > 1}">
+			<h2>Code points:</h2>
+			<ul>
+				<li>#{analyzer.decomposedFormatted}</li>
+			</ul>
+		</ui:fragment>
 		<ul>
-			<ui:repeat var="entry" value="#{analyzer.decomposed}">
-				<li>#{entry.label}: #{entry.value}</li>
+			<ui:repeat var="item" value="#{analyzer.decomposed}">
+				<li>#{item.char}: #{item.hex} #{item.name}</li>
 			</ui:repeat>
 		</ul>
 	</ui:fragment>
 	<ui:fragment rendered="#{analyzer.escaped.size() > 0}">
 		<h2>Can be escaped to:</h2>
 		<ul>
-			<ui:repeat var="entry"
+			<ui:repeat var="item"
 				value="#{analyzer.escaped.entrySet().toArray()}">
-				<li>#{entry.key}: #{entry.value}</li>
+				<li>#{item.key}: #{item.value}</li>
 			</ui:repeat>
 		</ul>
 	</ui:fragment>
 	<ui:fragment rendered="#{analyzer.encoded.size() > 0}">
 		<h2>Can be encoded to:</h2>
 		<ul>
-			<ui:repeat var="entry"
+			<ui:repeat var="item"
 				value="#{analyzer.encoded.entrySet().toArray()}">
-				<li>#{entry.key.name()}: #{entry.value}</li>
+				<li>#{item.key.name()}: #{item.value}</li>
 			</ui:repeat>
 		</ul>
 	</ui:fragment>
