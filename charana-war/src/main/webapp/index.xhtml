@@ -24,8 +24,12 @@
 	<ui:fragment rendered="#{analyzer.composed != null}">
 		<h2>Can be a sequence of Unicode code points:</h2>
 		<ul>
-			<li>#{analyzer.composed.label}: <a
-				href="?string=#{analyzer.composed.value}">#{analyzer.composed.value}</a></li>
+			<li><a href="?string=#{analyzer.composed.value}">#{analyzer.composed.value}</a>
+				<ul>
+					<ui:repeat var="entry" value="#{analyzer.composedDetail}">
+						<li>#{entry.label}: #{entry.value}</li>
+					</ui:repeat>
+				</ul></li>
 		</ul>
 	</ui:fragment>
 	<ui:fragment rendered="#{analyzer.unescaped.size() > 0}">

@@ -25,7 +25,10 @@ public class CharanaCLI {
 		CharInfo decodedAsCodePointResult = Unicoder.compose(string);
 		if (decodedAsCodePointResult != null) {
 			result.append("# Can be a sequence of Unicode code points:\n");
-			result.append(decodedAsCodePointResult.getLabel() + ": " + decodedAsCodePointResult.getValue() + "\n");
+			result.append(decodedAsCodePointResult.getValue() + "\n");
+			for (CharInfo item : Unicoder.decompose(decodedAsCodePointResult.getValue())) {
+				result.append("- " + item.getLabel() + ": " + item.getValue() + "\n");
+			}
 			result.append("\n");
 		}
 

@@ -18,6 +18,7 @@ import alpha3166.charana.core.Unicoder;
 public class Analyzer {
 	private String string;
 	private CharInfo composed;
+	private List<CharInfo> composedDetail;
 	private List<CharInfo> decomposed = new ArrayList<>();
 	private Map<String, String> escaped = new TreeMap<>();
 	private Map<String, String> unescaped = new TreeMap<>();
@@ -34,6 +35,10 @@ public class Analyzer {
 
 	public CharInfo getComposed() {
 		return composed;
+	}
+
+	public List<CharInfo> getComposedDetail() {
+		return composedDetail;
 	}
 
 	public List<CharInfo> getDecomposed() {
@@ -62,6 +67,7 @@ public class Analyzer {
 		}
 		if (string.isEmpty()) {
 			composed = null;
+			composedDetail = null;
 			decomposed = new ArrayList<>();
 			escaped = new TreeMap<>();
 			unescaped = new TreeMap<>();
@@ -70,6 +76,9 @@ public class Analyzer {
 			return null;
 		}
 		composed = Unicoder.compose(string);
+		if (composed != null) {
+			composedDetail = Unicoder.decompose(composed.getValue());
+		}
 		decomposed = Unicoder.decompose(string);
 		escaped = MultiEscaper.escape(string);
 		unescaped = MultiEscaper.unescape(string);
