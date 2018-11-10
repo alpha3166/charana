@@ -80,7 +80,7 @@
 		<ul>
 			<ui:repeat var="item"
 				value="#{analyzer.escaped.entrySet().toArray()}">
-				<li>#{item.key}: #{item.value}</li>
+				<li>#{item.key}: <a href="?string=#{item.value}">#{item.value}</a></li>
 			</ui:repeat>
 		</ul>
 	</ui:fragment>
@@ -89,7 +89,7 @@
 		<ul>
 			<ui:repeat var="item"
 				value="#{analyzer.encoded.entrySet().toArray()}">
-				<li>#{item.key.name()}: #{item.value}</li>
+				<li>#{item.key.name()}: <a href="?string=#{item.value}">#{item.value}</a></li>
 			</ui:repeat>
 		</ul>
 	</ui:fragment>
