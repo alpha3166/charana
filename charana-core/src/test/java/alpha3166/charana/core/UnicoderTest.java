@@ -95,10 +95,10 @@ class UnicoderTest {
 			assertEquals("U+0108 LATIN CAPITAL LETTER C WITH CIRCUMFLEX", actual.get(2).getValue());
 
 			assertEquals("漢", actual.get(3).getLabel());
-			assertEquals("U+6F22 CJK UNIFIED IDEOGRAPHS 6F22", actual.get(3).getValue());
+			assertEquals("U+6F22 CJK UNIFIED IDEOGRAPH-6F22", actual.get(3).getValue());
 
 			assertEquals("𠮷", actual.get(4).getLabel());
-			assertEquals("U+20BB7 CJK UNIFIED IDEOGRAPHS EXTENSION B 20BB7", actual.get(4).getValue());
+			assertEquals("U+20BB7 CJK UNIFIED IDEOGRAPH-20BB7", actual.get(4).getValue());
 		}
 
 		@Test

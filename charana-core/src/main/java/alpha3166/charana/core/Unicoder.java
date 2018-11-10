@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Unicoder {
+	private static DerivedName nameDb = new DerivedName();
+
 	public static CharInfo compose(String codePointString) {
 		String[] tokens = codePointString.trim().replaceFirst("<(.*)>", "$1").split("[ ,]+");
 		if (tokens.length == 0) {
@@ -58,7 +60,7 @@ public class Unicoder {
 				character = string.substring(i, i + 1);
 			}
 			String codePoint = String.format("U+%04X", string.codePointAt(i));
-			String name = Character.getName(string.codePointAt(i));
+			String name = nameDb.getName(string.codePointAt(i));
 			result.add(new CharInfo(character, codePoint + " " + name));
 		}
 		return result;
