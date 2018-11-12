@@ -248,4 +248,55 @@ class CodePointTest {
 			assertEquals("", actual);
 		}
 	}
+
+	@Nested
+	class FindByName {
+		@Test
+		void simpleWord() {
+			// Exercise
+			List<CodePoint> actual = CodePoint.findByName("calendar");
+			// Verify
+			List<CodePoint> expected = new ArrayList<>();
+			expected.add(new CodePoint(0x1F4C5));
+			expected.add(new CodePoint(0x1F4C6));
+			expected.add(new CodePoint(0x1F5D3));
+			assertIterableEquals(expected, actual);
+		}
+
+		@Test
+		void head() {
+			// Exercise
+			List<CodePoint> actual = CodePoint.findByName("^copyright");
+			// Verify
+			List<CodePoint> expected = new ArrayList<>();
+			expected.add(new CodePoint(0x00A9));
+			assertIterableEquals(expected, actual);
+		}
+
+		@Test
+		void tail() {
+			// Exercise
+			List<CodePoint> actual = CodePoint.findByName("copyright$");
+			// Verify
+			List<CodePoint> expected = new ArrayList<>();
+			expected.add(new CodePoint(0x2117));
+			assertIterableEquals(expected, actual);
+		}
+
+		@Test
+		void nonAscii() {
+			// Exercise
+			List<CodePoint> actual = CodePoint.findByName("漢字");
+			// Verify
+			assertEquals(0, actual.size());
+		}
+
+		@Test
+		void emptyString() {
+			// Exercise
+			List<CodePoint> actual = CodePoint.findByName("");
+			// Verify
+			assertEquals(0, actual.size());
+		}
+	}
 }

@@ -3,6 +3,7 @@ package alpha3166.charana.core;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -41,13 +42,13 @@ public class MultiEncoder {
 	}
 
 	public static SortedMap<Charset, String> decode(String hexString) {
-		SortedMap<Charset, String> result = new TreeMap<>();
 		byte[] decodedBytes;
 		try {
 			decodedBytes = Hex.decodeHex(hexString);
 		} catch (DecoderException e) {
-			return result;
+			return Collections.emptySortedMap();
 		}
+		SortedMap<Charset, String> result = new TreeMap<>();
 		for (Charset charset : soundCharsets) {
 			String decodedString = new String(decodedBytes, charset);
 			byte[] restoredBytes = decodedString.getBytes(charset);

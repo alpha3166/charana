@@ -21,7 +21,27 @@
 		<input type="text" jsf:value="#{analyzer.string}" />
 		<button jsf:action="#{analyzer.analyze}">Analyze</button>
 	</form>
-	<ui:fragment rendered="#{analyzer.parsed.size() > 0}">
+	<ui:fragment rendered="#{analyzer.foundByName.size() gt 0}">
+		<h2>Can be a part of character names of:</h2>
+		<ui:fragment rendered="#{analyzer.foundByName.size() le 1000}">
+			<ul>
+				<ui:repeat var="item" value="#{analyzer.foundByName}">
+					<li>#{item}</li>
+				</ui:repeat>
+			</ul>
+		</ui:fragment>
+		<ui:fragment rendered="#{analyzer.foundByName.size() gt 1000}">
+			<div>(First 1000 of #{analyzer.foundByName.size()} code points
+				are listed.)</div>
+			<ul>
+				<ui:repeat var="item"
+					value="#{analyzer.foundByName.subList(0, 1000)}">
+					<li>#{item}</li>
+				</ui:repeat>
+			</ul>
+		</ui:fragment>
+	</ui:fragment>
+	<ui:fragment rendered="#{analyzer.parsed.size() gt 0}">
 		<h2>Can be a code point notation of:</h2>
 		<ul>
 			<ui:fragment rendered="#{analyzer.parsed.size() == 1}">
@@ -30,18 +50,18 @@
 						#{item.hex} #{item.name}</li>
 				</ui:repeat>
 			</ui:fragment>
-			<ui:fragment rendered="#{analyzer.parsed.size() > 1}">
+			<ui:fragment rendered="#{analyzer.parsed.size() gt 1}">
 				<li><a href="?string=#{analyzer.parsedComposed}">#{analyzer.parsedComposed}</a>
 					#{analyzer.parsedFormatted}
 					<ul>
 						<ui:repeat var="item" value="#{analyzer.parsed}">
-							<li>#{item.char}: #{item.hex} #{item.name}</li>
+							<li>#{item}</li>
 						</ui:repeat>
 					</ul></li>
 			</ui:fragment>
 		</ul>
 	</ui:fragment>
-	<ui:fragment rendered="#{analyzer.unescaped.size() > 0}">
+	<ui:fragment rendered="#{analyzer.unescaped.size() gt 0}">
 		<h2>Can be an escaped notation of:</h2>
 		<ul>
 			<ui:repeat var="item"
@@ -50,7 +70,7 @@
 			</ui:repeat>
 		</ul>
 	</ui:fragment>
-	<ui:fragment rendered="#{analyzer.decoded.size() > 0}">
+	<ui:fragment rendered="#{analyzer.decoded.size() gt 0}">
 		<h2>Can be a hexadecimal notation of:</h2>
 		<ul>
 			<ui:repeat var="item"
@@ -63,7 +83,7 @@
 		<ui:fragment rendered="#{analyzer.decomposed.size() == 1}">
 			<h2>Code point:</h2>
 		</ui:fragment>
-		<ui:fragment rendered="#{analyzer.decomposed.size() > 1}">
+		<ui:fragment rendered="#{analyzer.decomposed.size() gt 1}">
 			<h2>Code points:</h2>
 			<ul>
 				<li>#{analyzer.decomposedFormatted}</li>
@@ -71,11 +91,11 @@
 		</ui:fragment>
 		<ul>
 			<ui:repeat var="item" value="#{analyzer.decomposed}">
-				<li>#{item.char}: #{item.hex} #{item.name}</li>
+				<li>#{item}</li>
 			</ui:repeat>
 		</ul>
 	</ui:fragment>
-	<ui:fragment rendered="#{analyzer.escaped.size() > 0}">
+	<ui:fragment rendered="#{analyzer.escaped.size() gt 0}">
 		<h2>Can be escaped to:</h2>
 		<ul>
 			<ui:repeat var="item"
@@ -84,7 +104,7 @@
 			</ui:repeat>
 		</ul>
 	</ui:fragment>
-	<ui:fragment rendered="#{analyzer.encoded.size() > 0}">
+	<ui:fragment rendered="#{analyzer.encoded.size() gt 0}">
 		<h2>Can be encoded to:</h2>
 		<ul>
 			<ui:repeat var="item"

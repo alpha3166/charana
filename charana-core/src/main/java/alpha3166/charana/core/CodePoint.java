@@ -106,4 +106,15 @@ public class CodePoint {
 		}
 		return result.toString();
 	}
+
+	public static List<CodePoint> findByName(String regex) {
+		if (!regex.matches("\\p{ASCII}+")) {
+			return Collections.emptyList();
+		}
+		List<CodePoint> result = new ArrayList<>();
+		for (int codePoint : nameDb.grep(regex)) {
+			result.add(new CodePoint(codePoint));
+		}
+		return result;
+	}
 }

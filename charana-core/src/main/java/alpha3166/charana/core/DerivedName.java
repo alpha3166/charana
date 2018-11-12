@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.regex.Pattern;
 
 public class DerivedName {
 	protected class Range {
@@ -70,5 +73,16 @@ public class DerivedName {
 			}
 		}
 		return null;
+	}
+
+	public Set<Integer> grep(String regex) {
+		Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+		Set<Integer> result = new TreeSet<>();
+		for (Map.Entry<Integer, String> entry : charMap.entrySet()) {
+			if (pattern.matcher(entry.getValue()).find()) {
+				result.add(entry.getKey());
+			}
+		}
+		return result;
 	}
 }

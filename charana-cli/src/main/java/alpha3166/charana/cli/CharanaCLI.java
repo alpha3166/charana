@@ -22,6 +22,15 @@ public class CharanaCLI {
 		result.append(string + "\n");
 		result.append("\n");
 
+		List<CodePoint> foundByName = CodePoint.findByName(string);
+		if (foundByName.size() > 0) {
+			result.append("# Can be a part of character names of:\n");
+			for (CodePoint item : foundByName) {
+				result.append(item + "\n");
+			}
+			result.append("\n");
+		}
+
 		List<CodePoint> parsedResult = CodePoint.parse(string);
 		if (parsedResult.size() > 0) {
 			result.append("# Can be a code point notation of:\n");

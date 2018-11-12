@@ -2,8 +2,12 @@ package alpha3166.charana.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -44,35 +48,53 @@ class DerivedNameTest {
 		}
 	}
 
-	@Test
-	void getNameWithLatin() {
-		// Exercise
-		String actual = sut.getName(0x41);
-		// Verify
-		assertEquals("LATIN CAPITAL LETTER A", actual);
+	@Nested
+	class GetName {
+		@Test
+		void ascii() {
+			// Exercise
+			String actual = sut.getName(0x41);
+			// Verify
+			assertEquals("LATIN CAPITAL LETTER A", actual);
+		}
+
+		@Test
+		void ideograph() {
+			// Exercise
+			String actual = sut.getName(0x3400);
+			// Verify
+			assertEquals("CJK UNIFIED IDEOGRAPH-3400", actual);
+		}
+
+		@Test
+		void sip() {
+			// Exercise
+			String actual = sut.getName(0x2000B);
+			// Verify
+			assertEquals("CJK UNIFIED IDEOGRAPH-2000B", actual);
+		}
+
+		@Test
+		void tooLargeCodePoint() {
+			// Exercise
+			String actual = sut.getName(0x110000);
+			// Verify
+			assertNull(actual);
+		}
 	}
 
-	@Test
-	void getNameWithIdeograph() {
-		// Exercise
-		String actual = sut.getName(0x3400);
-		// Verify
-		assertEquals("CJK UNIFIED IDEOGRAPH-3400", actual);
-	}
-
-	@Test
-	void getNameWithSIP() {
-		// Exercise
-		String actual = sut.getName(0x2000B);
-		// Verify
-		assertEquals("CJK UNIFIED IDEOGRAPH-2000B", actual);
-	}
-
-	@Test
-	void getNameWithTooLargeCodePoint() {
-		// Exercise
-		String actual = sut.getName(0x110000);
-		// Verify
-		assertNull(actual);
+	@Nested
+	class Grep {
+		@Test
+		void simpleWord() {
+			// Exercise
+			Set<Integer> actual = sut.grep("CALENDAR");
+			// Verify
+			Set<Integer> expected = new TreeSet<>();
+			expected.add(0x1F4C5);
+			expected.add(0x1F4C6);
+			expected.add(0x1F5D3);
+			assertIterableEquals(expected, actual);
+		}
 	}
 }

@@ -24,6 +24,7 @@ public class Analyzer {
 	private Map<String, String> unescaped = Collections.emptyMap();
 	private Map<Charset, String> encoded = Collections.emptyMap();
 	private Map<Charset, String> decoded = Collections.emptyMap();
+	private List<CodePoint> foundByName = Collections.emptyList();
 
 	public String getString() {
 		return string;
@@ -69,6 +70,10 @@ public class Analyzer {
 		return decoded;
 	}
 
+	public List<CodePoint> getFoundByName() {
+		return foundByName;
+	}
+
 	public String analyze() {
 		if (string == null) {
 			return null;
@@ -83,6 +88,7 @@ public class Analyzer {
 		unescaped = Collections.emptyMap();
 		encoded = Collections.emptyMap();
 		decoded = Collections.emptyMap();
+		foundByName = Collections.emptyList();
 
 		if (string.isEmpty()) {
 			return null;
@@ -101,6 +107,7 @@ public class Analyzer {
 		unescaped = MultiEscaper.unescape(string);
 		encoded = MultiEncoder.encode(string);
 		decoded = MultiEncoder.decode(string);
+		foundByName = CodePoint.findByName(string);
 		return null;
 	}
 }
