@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -88,9 +88,9 @@ class DerivedNameTest {
 		@Test
 		void simpleWord() {
 			// Exercise
-			Set<Integer> actual = sut.grep("CALENDAR");
+			List<Integer> actual = sut.grep("CALENDAR");
 			// Verify
-			Set<Integer> expected = new TreeSet<>();
+			List<Integer> expected = new ArrayList<>();
 			expected.add(0x1F4C5);
 			expected.add(0x1F4C6);
 			expected.add(0x1F5D3);

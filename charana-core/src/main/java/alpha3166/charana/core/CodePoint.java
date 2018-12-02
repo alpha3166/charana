@@ -3,6 +3,7 @@ package alpha3166.charana.core;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CodePoint {
 	private static DerivedName nameDb = new DerivedName();
@@ -74,47 +75,35 @@ public class CodePoint {
 	}
 
 	public static String format(List<CodePoint> codePoints) {
-		StringBuilder result = new StringBuilder();
-		for (CodePoint codePoint : codePoints) {
-			if (result.length() > 0) {
-				result.append(",");
-			}
-			result.append(String.format("U+%04X", codePoint.getValue()));
-		}
-		if (codePoints.size() >= 2) {
-			result.insert(0, "<");
-			result.append(">");
-		}
-		return result.toString();
-	}
-
-	public static List<CodePoint> decompose(String string) {
-		List<CodePoint> result = new ArrayList<>();
-		for (int i = 0; i < string.length(); i++) {
-			if (Character.isLowSurrogate(string.charAt(i))) {
-				continue;
-			}
-			result.add(new CodePoint(string.codePointAt(i)));
+		String result = codePoints.stream()
+				.map(c -> c.getHex())
+				.collect(Collectors.joining(","));
+		if (codePoints.size() > 1) {
+			return "<" + result + ">";
 		}
 		return result;
 	}
 
+	public static List<CodePoint> decompose(String string) {
+		return string.codePoints()
+				.boxed()
+				.map(CodePoint::new)
+				.collect(Collectors.toList());
+	}
+
 	public static String compose(List<CodePoint> codePoints) {
-		StringBuilder result = new StringBuilder();
-		for (CodePoint codePoint : codePoints) {
-			result.append(codePoint.getChar());
-		}
-		return result.toString();
+		return codePoints.stream()
+				.map(c -> c.getChar())
+				.collect(Collectors.joining());
 	}
 
 	public static List<CodePoint> findByName(String regex) {
 		if (!regex.matches("\\p{ASCII}+")) {
 			return Collections.emptyList();
 		}
-		List<CodePoint> result = new ArrayList<>();
-		for (int codePoint : nameDb.grep(regex)) {
-			result.add(new CodePoint(codePoint));
-		}
-		return result;
+		return nameDb.grep(regex)
+				.stream()
+				.map(CodePoint::new)
+				.collect(Collectors.toList());
 	}
 }
