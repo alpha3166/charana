@@ -74,9 +74,35 @@ class CodePointTest {
 			assertEquals(0x9, actual.getValue());
 			assertEquals("\t", actual.getChar());
 			assertEquals("U+0009", actual.getHex());
-			assertEquals("CHARACTER TABULATION", actual.getName());
+			assertEquals("(CHARACTER TABULATION, HORIZONTAL TABULATION, HT, TAB)", actual.getName());
 			assertEquals(Integer.hashCode(0x9), actual.hashCode());
-			assertEquals("\t: U+0009 CHARACTER TABULATION", actual.toString());
+			assertEquals("\t: U+0009 (CHARACTER TABULATION, HORIZONTAL TABULATION, HT, TAB)", actual.toString());
+		}
+
+		@Test
+		void space() {
+			// Exercise
+			CodePoint actual = new CodePoint(0x20);
+			// Verify
+			assertEquals(0x20, actual.getValue());
+			assertEquals(" ", actual.getChar());
+			assertEquals("U+0020", actual.getHex());
+			assertEquals("SPACE (SP)", actual.getName());
+			assertEquals(Integer.hashCode(0x20), actual.hashCode());
+			assertEquals(" : U+0020 SPACE (SP)", actual.toString());
+		}
+
+		@Test
+		void nonChar() {
+			// Exercise
+			CodePoint actual = new CodePoint(0x10FFFF);
+			// Verify
+			assertEquals(0x10FFFF, actual.getValue());
+			assertEquals("\uDBFF\uDFFF", actual.getChar());
+			assertEquals("U+10FFFF", actual.getHex());
+			assertEquals("", actual.getName());
+			assertEquals(Integer.hashCode(0x10FFFF), actual.hashCode());
+			assertEquals("\uDBFF\uDFFF: U+10FFFF ", actual.toString());
 		}
 	}
 
@@ -280,6 +306,47 @@ class CodePointTest {
 			// Verify
 			List<CodePoint> expected = new ArrayList<>();
 			expected.add(new CodePoint(0x2117));
+			assertIterableEquals(expected, actual);
+		}
+
+		@Test
+		void simpleWordOfAlias() {
+			// Exercise
+			List<CodePoint> actual = CodePoint.findByName("tabulation");
+			// Verify
+			List<CodePoint> expected = new ArrayList<>();
+			expected.add(new CodePoint(0x0009));
+			expected.add(new CodePoint(0x000B));
+			expected.add(new CodePoint(0x0088));
+			expected.add(new CodePoint(0x0089));
+			expected.add(new CodePoint(0x008A));
+			expected.add(new CodePoint(0x2409));
+			expected.add(new CodePoint(0x240B));
+			assertIterableEquals(expected, actual);
+		}
+
+		@Test
+		void headOfAlias() {
+			// Exercise
+			List<CodePoint> actual = CodePoint.findByName("^device");
+			// Verify
+			List<CodePoint> expected = new ArrayList<>();
+			expected.add(new CodePoint(0x0011));
+			expected.add(new CodePoint(0x0012));
+			expected.add(new CodePoint(0x0013));
+			expected.add(new CodePoint(0x0014));
+			expected.add(new CodePoint(0x0090));
+			assertIterableEquals(expected, actual);
+		}
+
+		@Test
+		void tailOfAlias() {
+			// Exercise
+			List<CodePoint> actual = CodePoint.findByName("string$");
+			// Verify
+			List<CodePoint> expected = new ArrayList<>();
+			expected.add(new CodePoint(0x0090));
+			expected.add(new CodePoint(0x0098));
 			assertIterableEquals(expected, actual);
 		}
 

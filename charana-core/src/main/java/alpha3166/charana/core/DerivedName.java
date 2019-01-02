@@ -60,9 +60,6 @@ public class DerivedName {
 	}
 
 	public String getName(int codePoint) {
-		if (Character.isISOControl(codePoint)) {
-			return Character.getName(codePoint);
-		}
 		if (charMap.containsKey(codePoint)) {
 			return charMap.get(codePoint);
 		}
@@ -80,7 +77,6 @@ public class DerivedName {
 				.stream()
 				.filter(e -> pattern.matcher(e.getValue()).find())
 				.map(e -> e.getKey())
-				.sorted()
 				.collect(Collectors.toList());
 	}
 }

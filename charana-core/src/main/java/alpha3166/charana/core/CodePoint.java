@@ -3,10 +3,13 @@ package alpha3166.charana.core;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class CodePoint {
 	private static DerivedName nameDb = new DerivedName();
+	private static NameAliases aliasDb = new NameAliases();
 
 	private int value;
 
@@ -27,7 +30,18 @@ public class CodePoint {
 	}
 
 	public String getName() {
-		return nameDb.getName(value);
+		String name = nameDb.getName(value);
+		String alias = aliasDb.getAlias(value);
+		if (name != null && alias == null) {
+			return name;
+		}
+		if (name != null && alias != null) {
+			return name + " (" + alias + ")";
+		}
+		if (name == null && alias != null) {
+			return "(" + alias + ")";
+		}
+		return "";
 	}
 
 	@Override
@@ -101,8 +115,10 @@ public class CodePoint {
 		if (!regex.matches("\\p{ASCII}+")) {
 			return Collections.emptyList();
 		}
-		return nameDb.grep(regex)
-				.stream()
+		Set<Integer> found = new TreeSet<>();
+		found.addAll(nameDb.grep(regex));
+		found.addAll(aliasDb.grep(regex));
+		return found.stream()
 				.map(CodePoint::new)
 				.collect(Collectors.toList());
 	}
