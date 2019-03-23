@@ -6,10 +6,12 @@
 <body>
 	<h1>CharAna Examples</h1>
 
-	<input type="text" value="漢字" />
-	<button>↓</button>
+	<form action="index.xhtml">
+		<input type="text" name="string" value="漢字" /><input type="submit"
+			value="Analyze" />
+	</form>
 	<ul>
-		<li>&lt;U+6F22,U+5B57&gt;</li>
+		<li>&lt;U+6F22, U+5B57&gt;</li>
 	</ul>
 	<ul>
 		<li>漢: U+6F22 CJK UNIFIED IDEOGRAPH-6F22</li>
@@ -23,60 +25,80 @@
 		<li>UTF-8: e6bca2e5ad97</li>
 	</ul>
 
-	<input type="text" value="&lt;U+6F22,U+5B57&gt;" />
-	<button>↓</button>
+	<form action="index.xhtml">
+		<input type="text" name="string" value="&lt;U+6F22, U+5B57&gt;" /><input
+			type="submit" value="Analyze" />
+	</form>
 	<ul>
-		<li>漢字 &lt;U+6F22,U+5B57&gt;
-			<ul>
-				<li>漢: U+6F22 CJK UNIFIED IDEOGRAPH-6F22</li>
-				<li>字: U+5B57 CJK UNIFIED IDEOGRAPH-5B57</li>
-			</ul>
-		</li>
+		<li>漢字</li>
+	</ul>
+	<ul>
+		<li>&lt;U+6F22, U+5B57&gt;</li>
+	</ul>
+	<ul>
+		<li>漢: U+6F22 CJK UNIFIED IDEOGRAPH-6F22</li>
+		<li>字: U+5B57 CJK UNIFIED IDEOGRAPH-5B57</li>
 	</ul>
 
-	<input type="text" value="6f22 5b57" />
-	<button>↓</button>
+	<form action="index.xhtml">
+		<input type="text" name="string" value="6f22 5b57" /><input
+			type="submit" value="Analyze" />
+	</form>
 	<ul>
-		<li>漢字 &lt;U+6F22,U+5B57&gt;
-			<ul>
-				<li>漢: U+6F22 CJK UNIFIED IDEOGRAPH-6F22</li>
-				<li>字: U+5B57 CJK UNIFIED IDEOGRAPH-5B57</li>
-			</ul>
-		</li>
+		<li>漢字</li>
+	</ul>
+	<ul>
+		<li>&lt;U+6F22, U+5B57&gt;</li>
+	</ul>
+	<ul>
+		<li>漢: U+6F22 CJK UNIFIED IDEOGRAPH-6F22</li>
+		<li>字: U+5B57 CJK UNIFIED IDEOGRAPH-5B57</li>
 	</ul>
 
-	<input type="text" value="48 61 6E" />
-	<button>↓</button>
+	<form action="index.xhtml">
+		<input type="text" name="string" value="48 61 6E" /><input
+			type="submit" value="Analyze" />
+	</form>
 	<ul>
-		<li>Han &lt;U+0048,U+0061,U+006E&gt;
-			<ul>
-				<li>H: U+0048 LATIN CAPITAL LETTER H</li>
-				<li>a: U+0061 LATIN SMALL LETTER A</li>
-				<li>n: U+006E LATIN SMALL LETTER N</li>
-			</ul>
-		</li>
+		<li>Han</li>
+	</ul>
+	<ul>
+		<li>&lt;U+0048, U+0061, U+006E&gt;</li>
+	</ul>
+	<ul>
+		<li>H: U+0048 LATIN CAPITAL LETTER H</li>
+		<li>a: U+0061 LATIN SMALL LETTER A</li>
+		<li>n: U+006E LATIN SMALL LETTER N</li>
 	</ul>
 
-	<input type="text" value="e6bca2e5ad97" />
-	<button>↓</button>
+	<form action="index.xhtml">
+		<input type="text" name="string" value="e6bca2e5ad97" /><input
+			type="submit" value="Analyze" />
+	</form>
 	<ul>
 		<li>UTF-8: 漢字</li>
 	</ul>
 
-	<input type="text" value="\u6F22\u5B57" />
-	<button>↓</button>
+	<form action="index.xhtml">
+		<input type="text" name="string" value="\u6F22\u5B57" /><input
+			type="submit" value="Analyze" />
+	</form>
 	<ul>
 		<li>Java: 漢字</li>
 	</ul>
 
-	<input type="text" value="&amp;#x6F22;&amp;#x5B57;" />
-	<button>↓</button>
+	<form action="index.xhtml">
+		<input type="text" name="string" value="&amp;#x6F22;&amp;#x5B57;" /><input
+			type="submit" value="Analyze" />
+	</form>
 	<ul>
 		<li>XML: 漢字</li>
 	</ul>
 
-	<input type="text" value="calendar" />
-	<button>↓</button>
+	<form action="index.xhtml">
+		<input type="text" name="string" value="calendar" /><input
+			type="submit" value="Analyze" />
+	</form>
 	<ul>
 		<li>📅: U+1F4C5 CALENDAR</li>
 		<li>📆: U+1F4C6 TEAR-OFF CALENDAR</li>
