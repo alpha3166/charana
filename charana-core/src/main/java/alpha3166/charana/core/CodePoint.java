@@ -91,7 +91,7 @@ public class CodePoint {
 	public static String format(List<CodePoint> codePoints) {
 		String result = codePoints.stream()
 				.map(c -> c.getHex())
-				.collect(Collectors.joining(","));
+				.collect(Collectors.joining(", "));
 		if (codePoints.size() > 1) {
 			return "<" + result + ">";
 		}

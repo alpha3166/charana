@@ -218,7 +218,7 @@ class CodePointTest {
 			// Exercise
 			String actual = CodePoint.format(list);
 			// Verify
-			assertEquals("<U+0009,U+0041,U+0108,U+6F22,U+20BB7>", actual);
+			assertEquals("<U+0009, U+0041, U+0108, U+6F22, U+20BB7>", actual);
 		}
 	}
 
