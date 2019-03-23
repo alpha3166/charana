@@ -45,7 +45,10 @@
 		<h2>Parse "#{analyzer.string}":</h2>
 		<ui:fragment rendered="#{analyzer.parsed.size() gt 1}">
 			<ul>
-				<li><a href="?string=#{analyzer.parsedComposed}">#{analyzer.parsedComposed}</a></li>
+				<li><h:outputLink>
+						<h:outputText value="#{analyzer.parsedComposed}" />
+						<f:param name="string" value="#{analyzer.parsedComposed}" />
+					</h:outputLink></li>
 			</ul>
 			<ul>
 				<li>#{analyzer.parsedFormatted}</li>
@@ -62,7 +65,11 @@
 		<ul>
 			<ui:repeat var="item"
 				value="#{analyzer.unescaped.entrySet().toArray()}">
-				<li>#{item.key}: <a href="?string=#{item.value}">#{item.value}</a></li>
+				<li>#{item.key}: <h:outputLink>
+						<h:outputText value="#{item.value}" />
+						<f:param name="string" value="#{item.value}" />
+					</h:outputLink>
+				</li>
 			</ui:repeat>
 		</ul>
 	</ui:fragment>
@@ -71,7 +78,11 @@
 		<ul>
 			<ui:repeat var="item"
 				value="#{analyzer.decoded.entrySet().toArray()}">
-				<li>#{item.key.name()}: <a href="?string=#{item.value}">#{item.value}</a></li>
+				<li>#{item.key.name()}: <h:outputLink>
+						<h:outputText value="#{item.value}" />
+						<f:param name="string" value="#{item.value}" />
+					</h:outputLink>
+				</li>
 			</ui:repeat>
 		</ul>
 	</ui:fragment>
@@ -93,7 +104,10 @@
 		<ul>
 			<ui:repeat var="item"
 				value="#{analyzer.escaped.entrySet().toArray()}">
-				<li>#{item.key}: <a href="?string=#{item.value}">#{item.value}</a></li>
+				<li>#{item.key}: <h:outputLink>
+						<h:outputText value="#{item.value}" />
+						<f:param name="string" value="#{item.value}" />
+					</h:outputLink></li>
 			</ui:repeat>
 		</ul>
 	</ui:fragment>
@@ -102,7 +116,11 @@
 		<ul>
 			<ui:repeat var="item"
 				value="#{analyzer.encoded.entrySet().toArray()}">
-				<li>#{item.key.name()}: <a href="?string=#{item.value}">#{item.value}</a></li>
+				<li>#{item.key.name()}: <h:outputLink>
+						<h:outputText value="#{item.value}" />
+						<f:param name="string" value="#{item.value}" />
+					</h:outputLink>
+				</li>
 			</ui:repeat>
 		</ul>
 	</ui:fragment>
