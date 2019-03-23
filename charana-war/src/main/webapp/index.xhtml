@@ -43,22 +43,18 @@
 	</ui:fragment>
 	<ui:fragment rendered="#{analyzer.parsed.size() gt 0}">
 		<h2>Parse "#{analyzer.string}":</h2>
+		<ui:fragment rendered="#{analyzer.parsed.size() gt 1}">
+			<ul>
+				<li><a href="?string=#{analyzer.parsedComposed}">#{analyzer.parsedComposed}</a></li>
+			</ul>
+			<ul>
+				<li>#{analyzer.parsedFormatted}</li>
+			</ul>
+		</ui:fragment>
 		<ul>
-			<ui:fragment rendered="#{analyzer.parsed.size() == 1}">
-				<ui:repeat var="item" value="#{analyzer.parsed}">
-					<li><a href="?string=#{analyzer.parsedComposed}">#{item.char}</a>:
-						#{item.hex} #{item.name}</li>
-				</ui:repeat>
-			</ui:fragment>
-			<ui:fragment rendered="#{analyzer.parsed.size() gt 1}">
-				<li><a href="?string=#{analyzer.parsedComposed}">#{analyzer.parsedComposed}</a>
-					#{analyzer.parsedFormatted}
-					<ul>
-						<ui:repeat var="item" value="#{analyzer.parsed}">
-							<li>#{item}</li>
-						</ui:repeat>
-					</ul></li>
-			</ui:fragment>
+			<ui:repeat var="item" value="#{analyzer.parsed}">
+				<li>#{item}</li>
+			</ui:repeat>
 		</ul>
 	</ui:fragment>
 	<ui:fragment rendered="#{analyzer.unescaped.size() gt 0}">
