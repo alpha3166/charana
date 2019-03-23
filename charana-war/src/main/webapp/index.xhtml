@@ -14,15 +14,15 @@
 		<f:viewParam name="string" value="#{analyzer.string}" />
 		<f:viewAction action="#{analyzer.analyze()}" />
 	</f:metadata>
-	<p>
-		<a href="examples.xhtml" target="charana_examples">Examples</a>
-	</p>
 	<form jsf:id="form">
 		<input type="text" jsf:value="#{analyzer.string}" />
 		<button jsf:action="#{analyzer.analyze}">Analyze</button>
+		<p>
+			<a href="examples.xhtml" target="charana_examples">Examples</a>
+		</p>
 	</form>
 	<ui:fragment rendered="#{analyzer.foundByName.size() gt 0}">
-		<h2>Can be a part of character names of:</h2>
+		<h2>Grep char names with "#{analyzer.string}":</h2>
 		<ui:fragment rendered="#{analyzer.foundByName.size() le 1000}">
 			<ul>
 				<ui:repeat var="item" value="#{analyzer.foundByName}">
@@ -42,7 +42,7 @@
 		</ui:fragment>
 	</ui:fragment>
 	<ui:fragment rendered="#{analyzer.parsed.size() gt 0}">
-		<h2>Can be a code point notation of:</h2>
+		<h2>Parse "#{analyzer.string}":</h2>
 		<ul>
 			<ui:fragment rendered="#{analyzer.parsed.size() == 1}">
 				<ui:repeat var="item" value="#{analyzer.parsed}">
@@ -62,7 +62,7 @@
 		</ul>
 	</ui:fragment>
 	<ui:fragment rendered="#{analyzer.unescaped.size() gt 0}">
-		<h2>Can be an escaped notation of:</h2>
+		<h2>Unescape "#{analyzer.string}":</h2>
 		<ul>
 			<ui:repeat var="item"
 				value="#{analyzer.unescaped.entrySet().toArray()}">
@@ -71,7 +71,7 @@
 		</ul>
 	</ui:fragment>
 	<ui:fragment rendered="#{analyzer.decoded.size() gt 0}">
-		<h2>Can be a hexadecimal notation of:</h2>
+		<h2>Decode "#{analyzer.string}":</h2>
 		<ul>
 			<ui:repeat var="item"
 				value="#{analyzer.decoded.entrySet().toArray()}">
@@ -80,11 +80,8 @@
 		</ul>
 	</ui:fragment>
 	<ui:fragment rendered="#{analyzer.decomposed.size() > 0}">
-		<ui:fragment rendered="#{analyzer.decomposed.size() == 1}">
-			<h2>Code point:</h2>
-		</ui:fragment>
+		<h2>Decompose "#{analyzer.string}":</h2>
 		<ui:fragment rendered="#{analyzer.decomposed.size() gt 1}">
-			<h2>Code points:</h2>
 			<ul>
 				<li>#{analyzer.decomposedFormatted}</li>
 			</ul>
@@ -96,7 +93,7 @@
 		</ul>
 	</ui:fragment>
 	<ui:fragment rendered="#{analyzer.escaped.size() gt 0}">
-		<h2>Can be escaped to:</h2>
+		<h2>Escape "#{analyzer.string}":</h2>
 		<ul>
 			<ui:repeat var="item"
 				value="#{analyzer.escaped.entrySet().toArray()}">
@@ -105,7 +102,7 @@
 		</ul>
 	</ui:fragment>
 	<ui:fragment rendered="#{analyzer.encoded.size() gt 0}">
-		<h2>Can be encoded to:</h2>
+		<h2>Encode "#{analyzer.string}":</h2>
 		<ul>
 			<ui:repeat var="item"
 				value="#{analyzer.encoded.entrySet().toArray()}">
