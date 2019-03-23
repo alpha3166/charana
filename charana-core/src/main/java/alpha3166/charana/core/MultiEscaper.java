@@ -60,9 +60,15 @@ public class MultiEscaper {
 	public static SortedMap<String, String> unescape(String string) {
 		SortedMap<String, String> result = new TreeMap<>();
 
-		String unescapedCsv = StringEscapeUtils.unescapeCsv(string);
-		if (!unescapedCsv.equals(string)) {
-			result.put("CSV", unescapedCsv);
+		try {
+			String unescapedCsv = StringEscapeUtils.unescapeCsv(string);
+			if (!unescapedCsv.equals(string)) {
+				result.put("CSV", unescapedCsv);
+			}
+		} catch (Exception e) {
+			// StringEscapeUtils#unescapeCsv() throws StringIndexOutOfBoundsException when
+			// it gets " as an argument
+			// Ignore it
 		}
 
 		String unescapedEcmsScript = StringEscapeUtils.unescapeEcmaScript(string);

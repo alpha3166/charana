@@ -1,5 +1,6 @@
 package alpha3166.charana.core;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Map;
@@ -53,6 +54,14 @@ class MultiEscaperTest {
 			Map<String, String> actual = MultiEscaper.unescape(ESCAPED_CSV);
 			// Verify
 			assertEquals(ORIGINAL, actual.get("CSV"));
+		}
+
+		@Test
+		void unescapeCSVwithDoubleQuote() {
+			// Exercise
+			Map<String, String> actual = MultiEscaper.unescape("\"");
+			// Verify
+			assertNull(actual.get("CSV"));
 		}
 
 		@Test
