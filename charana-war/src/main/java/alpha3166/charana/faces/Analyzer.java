@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import alpha3166.charana.core.CodePoint;
@@ -12,7 +13,7 @@ import alpha3166.charana.core.MultiEncoder;
 import alpha3166.charana.core.MultiEscaper;
 
 @Named
-@javax.enterprise.context.RequestScoped // Must be FQCN due to GlassFish bug
+@RequestScoped
 public class Analyzer {
 	private String string;
 	private List<CodePoint> parsed;
@@ -75,22 +76,7 @@ public class Analyzer {
 	}
 
 	public String analyze() {
-		if (string == null) {
-			return null;
-		}
-
-		parsed = null;
-		parsedComposed = null;
-		parsedFormatted = null;
-		decomposed = Collections.emptyList();
-		decomposedFormatted = null;
-		escaped = Collections.emptyMap();
-		unescaped = Collections.emptyMap();
-		encoded = Collections.emptyMap();
-		decoded = Collections.emptyMap();
-		foundByName = Collections.emptyList();
-
-		if (string.isEmpty()) {
+		if (string == null || string.isEmpty()) {
 			return null;
 		}
 
