@@ -22,6 +22,19 @@ public class CharanaCLI {
 		result.add("Subject: " + string);
 		result.add("");
 
+		result.addAll(findByName(string));
+		result.addAll(parse(string));
+		result.addAll(unescape(string));
+		result.addAll(decode(string));
+		result.addAll(decompose(string));
+		result.addAll(escape(string));
+		result.addAll(encode(string));
+
+		return result;
+	}
+
+	static List<String> findByName(String string) {
+		List<String> result = new ArrayList<>();
 		List<CodePoint> foundByName = CodePoint.findByName(string);
 		if (foundByName.size() > 0) {
 			result.add("Grep:");
@@ -30,7 +43,11 @@ public class CharanaCLI {
 			}
 			result.add("");
 		}
+		return result;
+	}
 
+	static List<String> parse(String string) {
+		List<String> result = new ArrayList<>();
 		List<CodePoint> parsedResult = CodePoint.parse(string);
 		if (parsedResult.size() > 0) {
 			result.add("Parse:");
@@ -45,7 +62,11 @@ public class CharanaCLI {
 			}
 			result.add("");
 		}
+		return result;
+	}
 
+	static List<String> unescape(String string) {
+		List<String> result = new ArrayList<>();
 		Map<String, String> unescapedResult = MultiEscaper.unescape(string);
 		if (unescapedResult.size() > 0) {
 			result.add("Unescape:");
@@ -54,7 +75,11 @@ public class CharanaCLI {
 			}
 			result.add("");
 		}
+		return result;
+	}
 
+	static List<String> decode(String string) {
+		List<String> result = new ArrayList<>();
 		Map<Charset, String> decodedResult = MultiEncoder.decode(string);
 		if (decodedResult.size() > 0) {
 			result.add("Decode:");
@@ -63,7 +88,11 @@ public class CharanaCLI {
 			}
 			result.add("");
 		}
+		return result;
+	}
 
+	static List<String> decompose(String string) {
+		List<String> result = new ArrayList<>();
 		List<CodePoint> decomposedResult = CodePoint.decompose(string);
 		if (decomposedResult.size() > 0) {
 			result.add("Decompose:");
@@ -75,7 +104,11 @@ public class CharanaCLI {
 			}
 			result.add("");
 		}
+		return result;
+	}
 
+	static List<String> escape(String string) {
+		List<String> result = new ArrayList<>();
 		Map<String, String> escapedResult = MultiEscaper.escape(string);
 		if (escapedResult.size() > 0) {
 			result.add("Escape:");
@@ -84,7 +117,11 @@ public class CharanaCLI {
 			}
 			result.add("");
 		}
+		return result;
+	}
 
+	static List<String> encode(String string) {
+		List<String> result = new ArrayList<>();
 		Map<Charset, String> encodedResult = MultiEncoder.encode(string);
 		if (encodedResult.size() > 0) {
 			result.add("Encode:");
@@ -93,7 +130,6 @@ public class CharanaCLI {
 			}
 			result.add("");
 		}
-
 		return result;
 	}
 }
