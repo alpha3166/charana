@@ -1,6 +1,7 @@
 package alpha3166.charana.cli;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,87 +13,87 @@ public class CharanaCLI {
 	public static void main(String... args) {
 		for (String arg : args) {
 			System.out.println("----------------");
-			System.out.print(analyze(arg));
+			analyze(arg).forEach(System.out::println);
 		}
 	}
 
-	public static String analyze(String string) {
-		StringBuilder result = new StringBuilder();
-		result.append("Subject: " + string + "\n");
-		result.append("\n");
+	public static List<String> analyze(String string) {
+		List<String> result = new ArrayList<>();
+		result.add("Subject: " + string);
+		result.add("");
 
 		List<CodePoint> foundByName = CodePoint.findByName(string);
 		if (foundByName.size() > 0) {
-			result.append("Grep:\n");
+			result.add("Grep:");
 			for (CodePoint item : foundByName) {
-				result.append("  - " + item + "\n");
+				result.add("  - " + item);
 			}
-			result.append("\n");
+			result.add("");
 		}
 
 		List<CodePoint> parsedResult = CodePoint.parse(string);
 		if (parsedResult.size() > 0) {
-			result.append("Parse:\n");
+			result.add("Parse:");
 			if (parsedResult.size() == 1) {
-				result.append("  - " + parsedResult.get(0) + "\n");
+				result.add("  - " + parsedResult.get(0));
 			} else {
-				result.append("  - " + CodePoint.compose(parsedResult) + "\n");
-				result.append("  - " + CodePoint.format(parsedResult) + "\n");
+				result.add("  - " + CodePoint.compose(parsedResult));
+				result.add("  - " + CodePoint.format(parsedResult));
 				for (CodePoint item : parsedResult) {
-					result.append("  - " + item + "\n");
+					result.add("  - " + item);
 				}
 			}
-			result.append("\n");
+			result.add("");
 		}
 
 		Map<String, String> unescapedResult = MultiEscaper.unescape(string);
 		if (unescapedResult.size() > 0) {
-			result.append("Unescape:\n");
+			result.add("Unescape:");
 			for (String type : unescapedResult.keySet()) {
-				result.append(String.format("  %s: %s\n", type, unescapedResult.get(type)));
+				result.add(String.format("  %s: %s", type, unescapedResult.get(type)));
 			}
-			result.append("\n");
+			result.add("");
 		}
 
 		Map<Charset, String> decodedResult = MultiEncoder.decode(string);
 		if (decodedResult.size() > 0) {
-			result.append("Decode:\n");
+			result.add("Decode:");
 			for (Charset charset : decodedResult.keySet()) {
-				result.append(String.format("  %s: %s\n", charset.name(), decodedResult.get(charset)));
+				result.add(String.format("  %s: %s", charset.name(), decodedResult.get(charset)));
 			}
-			result.append("\n");
+			result.add("");
 		}
 
 		List<CodePoint> decomposedResult = CodePoint.decompose(string);
 		if (decomposedResult.size() > 0) {
-			result.append("Decompose:\n");
+			result.add("Decompose:");
 			if (decomposedResult.size() > 1) {
-				result.append("  - " + CodePoint.format(decomposedResult) + "\n");
+				result.add("  - " + CodePoint.format(decomposedResult));
 			}
 			for (CodePoint item : CodePoint.decompose(string)) {
-				result.append("  - " + item + "\n");
+				result.add("  - " + item);
 			}
-			result.append("\n");
+			result.add("");
 		}
 
 		Map<String, String> escapedResult = MultiEscaper.escape(string);
 		if (escapedResult.size() > 0) {
-			result.append("Escape:\n");
+			result.add("Escape:");
 			for (String type : escapedResult.keySet()) {
-				result.append(String.format("  %s: %s\n", type, escapedResult.get(type)));
+				result.add(String.format("  %s: %s", type, escapedResult.get(type)));
 			}
-			result.append("\n");
+			result.add("");
 		}
 
 		Map<Charset, String> encodedResult = MultiEncoder.encode(string);
 		if (encodedResult.size() > 0) {
-			result.append("Encode:\n");
+			result.add("Encode:");
 			for (Charset charset : encodedResult.keySet()) {
-				result.append(String.format("  %s: %s\n", charset.name(), encodedResult.get(charset)));
+				result.add(String.format("  %s: %s", charset.name(), encodedResult.get(charset)));
 			}
-			result.append("\n");
+			result.add("");
 		}
 
-		return result.toString();
+		return result;
 	}
 }
