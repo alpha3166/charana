@@ -18,29 +18,28 @@ public class CharanaCLI {
 
 	public static String analyze(String string) {
 		StringBuilder result = new StringBuilder();
-		result.append("# Subject of analysis:\n");
-		result.append(string + "\n");
+		result.append("Subject: " + string + "\n");
 		result.append("\n");
 
 		List<CodePoint> foundByName = CodePoint.findByName(string);
 		if (foundByName.size() > 0) {
-			result.append("# Can be a part of character names of:\n");
+			result.append("Grep:\n");
 			for (CodePoint item : foundByName) {
-				result.append(item + "\n");
+				result.append("  - " + item + "\n");
 			}
 			result.append("\n");
 		}
 
 		List<CodePoint> parsedResult = CodePoint.parse(string);
 		if (parsedResult.size() > 0) {
-			result.append("# Can be a code point notation of:\n");
+			result.append("Parse:\n");
 			if (parsedResult.size() == 1) {
-				result.append(parsedResult.get(0) + "\n");
+				result.append("  - " + parsedResult.get(0) + "\n");
 			} else {
-				result.append(CodePoint.compose(parsedResult) + " ");
-				result.append(CodePoint.format(parsedResult) + "\n");
+				result.append("  - " + CodePoint.compose(parsedResult) + "\n");
+				result.append("  - " + CodePoint.format(parsedResult) + "\n");
 				for (CodePoint item : parsedResult) {
-					result.append("- " + item + "\n");
+					result.append("  - " + item + "\n");
 				}
 			}
 			result.append("\n");
@@ -48,50 +47,48 @@ public class CharanaCLI {
 
 		Map<String, String> unescapedResult = MultiEscaper.unescape(string);
 		if (unescapedResult.size() > 0) {
-			result.append("# Can be an escaped notation of:\n");
+			result.append("Unescape:\n");
 			for (String type : unescapedResult.keySet()) {
-				result.append(String.format("%s: %s\n", type, unescapedResult.get(type)));
+				result.append(String.format("  %s: %s\n", type, unescapedResult.get(type)));
 			}
 			result.append("\n");
 		}
 
 		Map<Charset, String> decodedResult = MultiEncoder.decode(string);
 		if (decodedResult.size() > 0) {
-			result.append("# Can be a hexadecimal notation of:\n");
+			result.append("Decode:\n");
 			for (Charset charset : decodedResult.keySet()) {
-				result.append(String.format("%s: %s\n", charset.name(), decodedResult.get(charset)));
+				result.append(String.format("  %s: %s\n", charset.name(), decodedResult.get(charset)));
 			}
 			result.append("\n");
 		}
 
 		List<CodePoint> decomposedResult = CodePoint.decompose(string);
 		if (decomposedResult.size() > 0) {
-			if (decomposedResult.size() == 1) {
-				result.append("# Code point:\n");
-			} else {
-				result.append("# Code points:\n");
-				result.append(CodePoint.format(decomposedResult) + "\n");
+			result.append("Decompose:\n");
+			if (decomposedResult.size() > 1) {
+				result.append("  - " + CodePoint.format(decomposedResult) + "\n");
 			}
 			for (CodePoint item : CodePoint.decompose(string)) {
-				result.append(item + "\n");
+				result.append("  - " + item + "\n");
 			}
 			result.append("\n");
 		}
 
 		Map<String, String> escapedResult = MultiEscaper.escape(string);
 		if (escapedResult.size() > 0) {
-			result.append("# Can be escaped to:\n");
+			result.append("Escape:\n");
 			for (String type : escapedResult.keySet()) {
-				result.append(String.format("%s: %s\n", type, escapedResult.get(type)));
+				result.append(String.format("  %s: %s\n", type, escapedResult.get(type)));
 			}
 			result.append("\n");
 		}
 
 		Map<Charset, String> encodedResult = MultiEncoder.encode(string);
 		if (encodedResult.size() > 0) {
-			result.append("# Can be encoded to:\n");
+			result.append("Encode:\n");
 			for (Charset charset : encodedResult.keySet()) {
-				result.append(String.format("%s: %s\n", charset.name(), encodedResult.get(charset)));
+				result.append(String.format("  %s: %s\n", charset.name(), encodedResult.get(charset)));
 			}
 			result.append("\n");
 		}
