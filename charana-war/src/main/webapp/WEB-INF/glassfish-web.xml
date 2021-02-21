@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <glassfish-web-app>
+	<context-root>/charana</context-root>
 	<parameter-encoding default-charset="UTF-8" />
 </glassfish-web-app>
