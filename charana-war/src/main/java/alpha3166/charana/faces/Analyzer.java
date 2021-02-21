@@ -5,12 +5,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
-
 import alpha3166.charana.core.CodePoint;
 import alpha3166.charana.core.MultiEncoder;
 import alpha3166.charana.core.MultiEscaper;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
 
 @Named
 @RequestScoped
