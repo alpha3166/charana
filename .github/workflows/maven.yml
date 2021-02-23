@@ -5,7 +5,7 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ master ]
+    branches: [ rest-test ]
   pull_request:
     branches: [ master ]
 
@@ -24,3 +24,5 @@ jobs:
       run: mvn --batch-mode install --file charana-core/pom.xml
     - name: Build CLI with Maven
       run: mvn --batch-mode package --file charana-cli/pom.xml
+    - name: Build WAR with Maven
+      run: mvn --batch-mode package --file charana-war/pom.xml
