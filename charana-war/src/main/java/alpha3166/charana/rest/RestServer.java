@@ -1,10 +1,8 @@
 package alpha3166.charana.rest;
 
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -21,56 +19,36 @@ public class RestServer {
 	@GET
 	@Path("/parse/{string}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<List<String>> parse(@PathParam("string") String string) {
-		return transformCodePointList(CodePoint.parse(string));
+	public List<CodePoint> parse(@PathParam("string") String string) {
+		return CodePoint.parse(string);
 	}
 
 	@GET
 	@Path("/decompose/{string}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<List<String>> decompose(@PathParam("string") String string) {
-		return transformCodePointList(CodePoint.decompose(string));
+	public List<CodePoint> decompose(@PathParam("string") String string) {
+		return CodePoint.decompose(string);
 	}
 
 	@GET
 	@Path("/findByName/{string}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<List<String>> findByName(@PathParam("string") String string) {
-		return transformCodePointList(CodePoint.findByName(string));
-	}
-
-	private List<List<String>> transformCodePointList(List<CodePoint> list) {
-		List<List<String>> result = new ArrayList<>();
-		for (CodePoint item : list) {
-			List<String> record = new ArrayList<>();
-			record.add(item.getChar());
-			record.add(item.getHex());
-			record.add(item.getName());
-			result.add(record);
-		}
-		return result;
+	public List<CodePoint> findByName(@PathParam("string") String string) {
+		return CodePoint.findByName(string);
 	}
 
 	@GET
 	@Path("/encode/{string}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Map<String, String> encode(@PathParam("string") String string) {
-		return transformCharsetMap(MultiEncoder.encode(string));
+	public Map<Charset, String> encode(@PathParam("string") String string) {
+		return MultiEncoder.encode(string);
 	}
 
 	@GET
 	@Path("/decode/{string}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Map<String, String> decode(@PathParam("string") String string) {
-		return transformCharsetMap(MultiEncoder.decode(string));
-	}
-
-	private Map<String, String> transformCharsetMap(Map<Charset, String> map) {
-		Map<String, String> result = new TreeMap<>();
-		for (Charset charset : map.keySet()) {
-			result.put(charset.name(), map.get(charset));
-		}
-		return result;
+	public Map<Charset, String> decode(@PathParam("string") String string) {
+		return MultiEncoder.decode(string);
 	}
 
 	@GET
