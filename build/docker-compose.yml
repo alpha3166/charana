@@ -1,0 +1,19 @@
+version: '3'
+services:
+  charana:
+    image: maven:3-adoptopenjdk-8
+    user: ${UID}:${GID}
+    volumes:
+      - ${HOME}/.m2:/myhome/.m2
+      - ..:/proj
+    working_dir: /proj
+    environment:
+      - MAVEN_CONFIG=/myhome/.m2
+    command: >-
+      sh -c "
+      cd charana-core &&
+      mvn -Duser.home=/myhome install &&
+      cd ../charana-cli &&
+      mvn -Duser.home=/myhome package &&
+      cd ../charana-war &&
+      mvn -Duser.home=/myhome package"
