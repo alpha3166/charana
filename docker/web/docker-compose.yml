@@ -1,0 +1,9 @@
+version: '3'
+services:
+  charana:
+    build: 
+      context: ../..
+      dockerfile: docker/web/Dockerfile
+    image: charana:web
+    ports:
+      - 8080:8080
