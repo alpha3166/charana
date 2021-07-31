@@ -1,0 +1,14 @@
+version: '3'
+services:
+  ws:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: charana-dev
+    user: 1000:1000
+    ports:
+      - 8080:8080
+    volumes:
+      - ${HOME}/.m2:/home/me/.m2
+      - ../..:/charana
+    working_dir: /charana

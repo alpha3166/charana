@@ -1,0 +1,7 @@
+version: '3'
+services:
+  ws:
+    build: 
+      context: ../..
+      dockerfile: docker/charana_cli/Dockerfile
+    image: charana-cli

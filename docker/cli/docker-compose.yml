@@ -1,7 +1,0 @@
-version: '3'
-services:
-  charana:
-    build: 
-      context: ../..
-      dockerfile: docker/cli/Dockerfile
-    image: charana:cli

@@ -77,7 +77,3 @@ Go to the `target` directory under `charana-war`, and deploy the WAR specifying 
 Now you can get to the web page through the URL.
 
     http://localhost:8080/charana/faces/index.xhtml
-
-## How to use CharAna WAR with Docker
-
-See the [README.md](docker/web/README.md) in [docker/web](docker/web) directory.

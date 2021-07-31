@@ -1,4 +1,5 @@
-FROM maven:3-adoptopenjdk-8 as builder
+FROM adoptopenjdk/openjdk8:alpine as builder
+RUN apk -U add maven
 COPY charana-core /charana-core
 WORKDIR /charana-core
 RUN mvn install
@@ -6,7 +7,7 @@ COPY charana-war /charana-war
 WORKDIR /charana-war
 RUN mvn package
 
-FROM adoptopenjdk/openjdk8:alpine as runner
+FROM adoptopenjdk/openjdk8:alpine-jre as runner
 RUN apk -U --no-cache add curl zip && \
     curl -o glassfish-5.1.0.zip http://ftp.yz.yamagata-u.ac.jp/pub/eclipse/glassfish/glassfish-5.1.0.zip && \
     unzip glassfish-5.1.0.zip -d / && \
