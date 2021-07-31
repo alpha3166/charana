@@ -44,10 +44,6 @@ There should be two JARs. `charana-cli-x.x.x.jar` contains only a small main cla
 
     java -jar charana-cli-*-jar-with-dependencies.jar 漢字
 
-## How to use CharAna CLI with Docker
-
-See the [README.md](docker/cli/README.md) in [docker/cli](docker/cli) directory.
-
 ## CharAna WAR
 
 CharAna WAR is a web application interface, and REST APIs for CharAna. It's a JaveEE 8 application.
