@@ -31,6 +31,9 @@ public class MultiEncoder {
 
 	public static SortedMap<Charset, String> encode(String string) {
 		SortedMap<Charset, String> result = new TreeMap<>();
+		if (string.isEmpty()) {
+			return result;
+		}
 		for (Charset charset : soundCharsets) {
 			byte[] encodedBytes = string.getBytes(charset);
 			String restoredString = new String(encodedBytes, charset);
@@ -42,13 +45,16 @@ public class MultiEncoder {
 	}
 
 	public static SortedMap<Charset, String> decode(String hexString) {
+		SortedMap<Charset, String> result = new TreeMap<>();
+		if (hexString.isEmpty()) {
+			return result;
+		}
 		byte[] decodedBytes;
 		try {
 			decodedBytes = Hex.decodeHex(hexString);
 		} catch (DecoderException e) {
 			return Collections.emptySortedMap();
 		}
-		SortedMap<Charset, String> result = new TreeMap<>();
 		for (Charset charset : soundCharsets) {
 			String decodedString = new String(decodedBytes, charset);
 			byte[] restoredBytes = decodedString.getBytes(charset);

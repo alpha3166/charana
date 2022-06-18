@@ -36,8 +36,7 @@ class MultiEncoderTest {
 			// Exercise
 			Map<Charset, String> actual = MultiEncoder.encode("");
 			// Verify
-			assertEquals("", actual.get(Charset.forName("UTF-8")));
-			assertEquals("", actual.get(Charset.forName("Shift_JIS")));
+			assertEquals(0, actual.size());
 		}
 	}
 
@@ -57,8 +56,7 @@ class MultiEncoderTest {
 			// Exercise
 			Map<Charset, String> actual = MultiEncoder.decode("");
 			// Verify
-			assertEquals("", actual.get(Charset.forName("UTF-8")));
-			assertEquals("", actual.get(Charset.forName("Shift_JIS")));
+			assertEquals(0, actual.size());
 		}
 
 		@Test
