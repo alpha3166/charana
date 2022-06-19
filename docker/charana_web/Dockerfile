@@ -1,24 +1,13 @@
-FROM adoptopenjdk/openjdk8:alpine as builder
+FROM eclipse-temurin:17-alpine as builder
 RUN apk -U add maven
 COPY charana-core /charana-core
 WORKDIR /charana-core
 RUN mvn install
-COPY charana-war /charana-war
-WORKDIR /charana-war
+COPY charana-web /charana-web
+WORKDIR /charana-web
 RUN mvn package
 
-FROM adoptopenjdk/openjdk8:alpine-jre as runner
-RUN apk -U --no-cache add curl zip && \
-    curl -o glassfish-5.1.0.zip http://ftp.yz.yamagata-u.ac.jp/pub/eclipse/glassfish/glassfish-5.1.0.zip && \
-    unzip glassfish-5.1.0.zip -d / && \
-    rm -f glassfish-5.1.0.zip && \
-    apk del -r curl zip
-ENV GLASSFISH_HOME /glassfish5
-ENV PATH $PATH:$GLASSFISH_HOME/bin
-COPY --from=builder /charana-war/target/charana-war-*.war /charana.war
-RUN asadmin start-domain && \
-    asadmin deploy /charana.war && \
-    asadmin stop-domain && \
-    rm /charana.war
+FROM eclipse-temurin:17-jre-alpine as runner
+COPY --from=builder /charana-web/target/charana-web-*.jar /charana-web.jar
 EXPOSE 8080
-CMD asadmin start-domain && tail -f /glassfish5/glassfish/domains/domain1/logs/server.log
+CMD java -jar /charana-web.jar

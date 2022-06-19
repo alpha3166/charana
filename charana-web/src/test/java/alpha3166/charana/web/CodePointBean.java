@@ -1,4 +1,4 @@
-package alpha3166.charana.rest;
+package alpha3166.charana.web;
 
 public class CodePointBean {
 	private int value;

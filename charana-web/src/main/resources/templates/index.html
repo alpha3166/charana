@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>CharAna - A Character Analyzer</title>
+</head>
+<body>
+	<h1>CharAna - A Character Analyzer</h1>
+	<form action="index.html" th:action="@{.}" th:object="${inputForm}">
+		<input type="text" name="string" th:field="*{string}" />
+		<button type="submit">Analyze</button>
+		<p>
+			<a href="examples.html">Examples</a>
+		</p>
+	</form>
+	<th:block th:if="${result.foundByName.size()} > 0">
+		<h2>Grep char names with "[[${result.string}]]":</h2>
+		<th:block th:if="${result.foundByName.size()} < 1000">
+			<ul>
+				<li th:each="item : ${result.foundByName}">[[${item.toString()}]]</li>
+			</ul>
+		</th:block>
+		<th:block th:if="${result.foundByName.size() gt 1000}">
+			<div>(First 1000 of [[${result.foundByName.size()}]] code
+				points are listed.)</div>
+			<ul>
+				<li th:each="item : ${result.foundByName.subList(0, 1000)}">[[${item.toString()}]]</li>
+			</ul>
+		</th:block>
+	</th:block>
+	<th:block th:if="${result.parsed.size()} > 0">
+		<h2>Parse "[[${result.string}]]":</h2>
+		<th:block th:if="${result.parsed.size() > 1}">
+			<ul>
+				<li><a href="." th:href="@{.(string=${result.parsedComposed})}">[[${result.parsedComposed}]]</a></li>
+			</ul>
+			<ul>
+				<li>[[${result.parsedFormatted}]]</li>
+			</ul>
+		</th:block>
+		<ul>
+			<li th:each="item : ${result.parsed}">[[${item.toString()}]]</li>
+		</ul>
+	</th:block>
+	<th:block th:if="${result.unescaped.size() gt 0}">
+		<h2>Unescape "[[${result.string}]]":</h2>
+		<ul>
+			<li th:each="item : ${result.unescaped.entrySet().toArray()}">[[${item.key}]]:
+				<a href="." th:href="@{.(string=${item.value})}">[[${item.value}]]</a>
+			</li>
+		</ul>
+	</th:block>
+	<th:block th:if="${result.decoded.size()} > 0">
+		<h2>Decode "[[${result.string}]]":</h2>
+		<ul>
+			<li th:each="item : ${result.decoded.entrySet().toArray()}">[[${item.key}]]:
+				<a href="." th:href="@{.(string=${item.value})}">[[${item.value}]]</a>
+			</li>
+		</ul>
+	</th:block>
+	<th:block th:if="${result.decomposed.size()} > 0">
+		<h2>Decompose "[[${result.string}]]":</h2>
+		<th:block th:if="${result.decomposed.size()} > 1">
+			<ul>
+				<li>[[${result.decomposedFormatted}]]</li>
+			</ul>
+		</th:block>
+		<ul>
+			<li th:each="item : ${result.decomposed}">[[${item.toString()}]]</li>
+		</ul>
+	</th:block>
+	<th:block th:if="${result.escaped.size()} > 0">
+		<h2>Escape "[[${result.string}]]":</h2>
+		<ul>
+			<li th:each="item : ${result.escaped.entrySet().toArray()}">
+				[[${item.key}]]: <a href="." th:href="@{.(string=${item.value})}">
+					[[${item.value}]]</a>
+			</li>
+		</ul>
+	</th:block>
+	<th:block th:if="${result.encoded.size()} > 0">
+		<h2>Encode "[[${result.string}]]":</h2>
+		<ul>
+			<li th:each="item : ${result.encoded.entrySet().toArray()}">[[${item.key}]]:
+				<a href="." th:href="@{.(string=${item.value})}">[[${item.value}]]</a>
+			</li>
+		</ul>
+	</th:block>
+</body>
+</html>

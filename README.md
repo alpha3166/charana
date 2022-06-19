@@ -12,11 +12,11 @@ CharAna is a simple character analyzer, written in Java. It accepts a sequence o
 
 ## CharAna Core
 
-CharAna Core is a library of analytical methods for a string. It's just a thin wrapper of standard Java APIs. The library is used from CharAna CLI and WAR.
+CharAna Core is a library of analytical methods for a string. It's just a thin wrapper of standard Java APIs. The library is used from CharAna CLI and Web.
 
 ## How to build CharAna Core
 
-Go to the `charana-core` directory, and `install` it with Maven. Since the CLI and WAR mentioned below depend on this core library, `mvn package` will not suffice.
+Go to the `charana-core` directory, and `install` it with Maven. Since the CLI and Web mentioned below depend on this core library, `mvn package` will not suffice.
 
     cd charana/charana-core
     mvn install
@@ -44,32 +44,29 @@ There should be two JARs. `charana-cli-x.x.x.jar` contains only a small main cla
 
     java -jar charana-cli-*-jar-with-dependencies.jar 漢字
 
-## CharAna WAR
+## CharAna Web
 
-CharAna WAR is a web application interface, and REST APIs for CharAna. It's a JaveEE 8 application.
+CharAna Web is a web application interface, and REST APIs for CharAna.
 
-![CharAna WAR Screenshot](screenshot/web.png)
+![CharAna Web Screenshot](screenshot/web.png)
 
-## How to build CharAna WAR
+## How to build CharAna Web
 
-Go to the `charana-war` directory, and build with `mvn package`.
+Go to the `charana-web` directory, and build with `mvn package`.
 
-    cd charana/charana-war
+    cd charana/charana-web
     mvn package
 
-## How to run CharAna WAR
+## How to run CharAna Web
 
-Assume that you have installed GlassFish on your machine. Suppose the `bin` directory of GlassFish home is in the `PATH` environment variable.
+Go to the `target` directory under `charana-web`.
 
-Start the GlassFish server.
+    cd charana/charana-web/target
 
-    asadmin start-domain
+Just kick the "fat" JAR to start a web server.
 
-Go to the `target` directory under `charana-war`, and deploy the WAR specifying the context root.
+    java -jar charana-web-x.x.x.jar
 
-    cd charana/charana-war/target
-    asadmin deploy --contextroot charana charana-war-*.war
+You can get to the web page through the URL.
 
-Now you can get to the web page through the URL.
-
-    http://localhost:8080/charana/faces/index.xhtml
+    http://localhost:8080/
