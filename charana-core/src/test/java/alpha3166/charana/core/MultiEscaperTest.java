@@ -3,8 +3,6 @@ package alpha3166.charana.core;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.util.Map;
-
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +23,7 @@ class MultiEscaperTest {
 		@Test
 		void escape() {
 			// Exercise
-			Map<String, String> actual = MultiEscaper.escape(ORIGINAL);
+			var actual = MultiEscaper.escape(ORIGINAL);
 			// Verify
 			assertEquals(ESCAPED_CSV, actual.get("CSV"));
 			assertEquals(ESCAPED_ECMASCRIPT, actual.get("ECMAScript"));
@@ -40,7 +38,7 @@ class MultiEscaperTest {
 
 		void escapeNotHappens() {
 			// Exercise
-			Map<String, String> actual = MultiEscaper.escape("A");
+			var actual = MultiEscaper.escape("A");
 			// Verify
 			assertEquals(0, actual.size());
 		}
@@ -51,7 +49,7 @@ class MultiEscaperTest {
 		@Test
 		void unescapeCSV() {
 			// Exercise
-			Map<String, String> actual = MultiEscaper.unescape(ESCAPED_CSV);
+			var actual = MultiEscaper.unescape(ESCAPED_CSV);
 			// Verify
 			assertEquals(ORIGINAL, actual.get("CSV"));
 		}
@@ -59,7 +57,7 @@ class MultiEscaperTest {
 		@Test
 		void unescapeCSVwithDoubleQuote() {
 			// Exercise
-			Map<String, String> actual = MultiEscaper.unescape("\"");
+			var actual = MultiEscaper.unescape("\"");
 			// Verify
 			assertNull(actual.get("CSV"));
 		}
@@ -67,7 +65,7 @@ class MultiEscaperTest {
 		@Test
 		void unescapeECMAScript() {
 			// Exercise
-			Map<String, String> actual = MultiEscaper.unescape(ESCAPED_ECMASCRIPT);
+			var actual = MultiEscaper.unescape(ESCAPED_ECMASCRIPT);
 			// Verify
 			assertEquals(ORIGINAL, actual.get("ECMAScript"));
 		}
@@ -75,7 +73,7 @@ class MultiEscaperTest {
 		@Test
 		void unescapeHTML3() {
 			// Exercise
-			Map<String, String> actual = MultiEscaper.unescape(ESCAPED_HTML3);
+			var actual = MultiEscaper.unescape(ESCAPED_HTML3);
 			// Verify
 			assertEquals(ORIGINAL, actual.get("HTML3"));
 		}
@@ -83,7 +81,7 @@ class MultiEscaperTest {
 		@Test
 		void unescapeHTML4() {
 			// Exercise
-			Map<String, String> actual = MultiEscaper.unescape(ESCAPED_HTML4);
+			var actual = MultiEscaper.unescape(ESCAPED_HTML4);
 			// Verify
 			assertEquals(ORIGINAL, actual.get("HTML4"));
 		}
@@ -91,7 +89,7 @@ class MultiEscaperTest {
 		@Test
 		void unescapeJava() {
 			// Exercise
-			Map<String, String> actual = MultiEscaper.unescape(ESCAPED_JAVA);
+			var actual = MultiEscaper.unescape(ESCAPED_JAVA);
 			// Verify
 			assertEquals(ORIGINAL, actual.get("Java"));
 		}
@@ -99,7 +97,7 @@ class MultiEscaperTest {
 		@Test
 		void unescapeJSON() {
 			// Exercise
-			Map<String, String> actual = MultiEscaper.unescape(ESCAPED_JSON);
+			var actual = MultiEscaper.unescape(ESCAPED_JSON);
 			// Verify
 			assertEquals(ORIGINAL, actual.get("JSON"));
 		}
@@ -107,7 +105,7 @@ class MultiEscaperTest {
 		@Test
 		void unescapeXML11() {
 			// Exercise
-			Map<String, String> actual = MultiEscaper.unescape(ESCAPED_XML11);
+			var actual = MultiEscaper.unescape(ESCAPED_XML11);
 			// Verify
 			assertEquals(ORIGINAL, actual.get("XML"));
 		}
@@ -115,7 +113,7 @@ class MultiEscaperTest {
 		@Test
 		void unescapeXSI() {
 			// Exercise
-			Map<String, String> actual = MultiEscaper.unescape(ESCAPED_XSI);
+			var actual = MultiEscaper.unescape(ESCAPED_XSI);
 			// Verify
 			assertEquals(ORIGINAL, actual.get("XSI"));
 		}
@@ -123,7 +121,7 @@ class MultiEscaperTest {
 		@Test
 		void unescapeNotHappens() {
 			// Exercise
-			Map<String, String> actual = MultiEscaper.unescape("A");
+			var actual = MultiEscaper.unescape("A");
 			// Verify
 			assertEquals(0, actual.size());
 		}

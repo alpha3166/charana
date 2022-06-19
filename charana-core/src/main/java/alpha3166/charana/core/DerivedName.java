@@ -17,7 +17,7 @@ public class DerivedName {
 		private String baseName;
 
 		public Range(String range, String baseName) {
-			String[] tokens = range.split("\\.\\.");
+			var tokens = range.split("\\.\\.");
 			this.low = Integer.parseInt(tokens[0], 16);
 			this.high = Integer.parseInt(tokens[1], 16);
 			this.baseName = baseName;
@@ -36,21 +36,20 @@ public class DerivedName {
 	private List<Range> rangeList = new ArrayList<>();
 
 	public DerivedName() {
-		try (BufferedReader in = new BufferedReader(
-				new InputStreamReader(getClass().getResourceAsStream("/DerivedName.txt")))) {
+		try (var in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/DerivedName.txt")))) {
 			String line = null;
 			while ((line = in.readLine()) != null) {
 				if (line.startsWith("#") || line.isEmpty()) {
 					continue;
 				}
-				String[] tokens = line.split(";");
-				String codePointStr = tokens[0].trim();
-				String name = tokens[1].trim();
+				var tokens = line.split(";");
+				var codePointStr = tokens[0].trim();
+				var name = tokens[1].trim();
 				if (codePointStr.contains("..")) {
-					Range range = new Range(codePointStr, name);
+					var range = new Range(codePointStr, name);
 					rangeList.add(range);
 				} else {
-					int codePoint = Integer.parseInt(codePointStr, 16);
+					var codePoint = Integer.parseInt(codePointStr, 16);
 					charMap.put(codePoint, name);
 				}
 			}
@@ -63,7 +62,7 @@ public class DerivedName {
 		if (charMap.containsKey(codePoint)) {
 			return charMap.get(codePoint);
 		}
-		for (Range range : rangeList) {
+		for (var range : rangeList) {
 			if (range.contains(codePoint)) {
 				return range.getName(codePoint);
 			}
@@ -72,11 +71,8 @@ public class DerivedName {
 	}
 
 	public List<Integer> grep(String regex) {
-		final Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-		return charMap.entrySet()
-				.stream()
-				.filter(e -> pattern.matcher(e.getValue()).find())
-				.map(e -> e.getKey())
+		final var pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+		return charMap.entrySet().stream().filter(e -> pattern.matcher(e.getValue()).find()).map(e -> e.getKey())
 				.collect(Collectors.toList());
 	}
 }

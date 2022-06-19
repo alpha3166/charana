@@ -14,18 +14,17 @@ public class NameAliases {
 	private Map<Integer, List<String>> charMap = new HashMap<>();
 
 	public NameAliases() {
-		try (BufferedReader in = new BufferedReader(
-				new InputStreamReader(getClass().getResourceAsStream("/NameAliases.txt")))) {
+		try (var in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/NameAliases.txt")))) {
 			String line = null;
 			while ((line = in.readLine()) != null) {
 				if (line.startsWith("#") || line.isEmpty()) {
 					continue;
 				}
-				String[] tokens = line.split(";");
-				String codePointStr = tokens[0];
-				String name = tokens[1];
-				int codePoint = Integer.parseInt(codePointStr, 16);
-				List<String> nameList = charMap.get(codePoint);
+				var tokens = line.split(";");
+				var codePointStr = tokens[0];
+				var name = tokens[1];
+				var codePoint = Integer.parseInt(codePointStr, 16);
+				var nameList = charMap.get(codePoint);
 				if (nameList == null) {
 					nameList = new ArrayList<>();
 					charMap.put(codePoint, nameList);
@@ -41,25 +40,23 @@ public class NameAliases {
 		if (!charMap.containsKey(codePoint)) {
 			return null;
 		}
-		return charMap.get(codePoint)
-				.stream()
-				.collect(Collectors.joining(", "));
+		return charMap.get(codePoint).stream().collect(Collectors.joining(", "));
 	}
 
 	public List<Integer> grep(String regex) {
-		final Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-		return charMap.entrySet()
-				.stream()
+		final var pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+		return charMap.entrySet() //
+				.stream() //
 				.filter(e -> {
-					List<String> nameList = e.getValue();
-					for (String name : nameList) {
+					var nameList = e.getValue();
+					for (var name : nameList) {
 						if (pattern.matcher(name).find()) {
 							return true;
 						}
 					}
 					return false;
-				})
-				.map(e -> e.getKey())
+				}) //
+				.map(e -> e.getKey()) //
 				.collect(Collectors.toList());
 	}
 }

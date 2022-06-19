@@ -14,7 +14,7 @@ import org.apache.commons.codec.binary.Hex;
 public class MultiEncoder {
 	private static List<Charset> soundCharsets = new ArrayList<>();
 	static {
-		for (Charset charset : Charset.availableCharsets().values()) {
+		for (var charset : Charset.availableCharsets().values()) {
 			try {
 				// Some charsets like ISO-2022-CN or x-JISAutoDetect are actually not available
 				"".getBytes(charset);
@@ -34,9 +34,9 @@ public class MultiEncoder {
 		if (string.isEmpty()) {
 			return result;
 		}
-		for (Charset charset : soundCharsets) {
-			byte[] encodedBytes = string.getBytes(charset);
-			String restoredString = new String(encodedBytes, charset);
+		for (var charset : soundCharsets) {
+			var encodedBytes = string.getBytes(charset);
+			var restoredString = new String(encodedBytes, charset);
 			if (restoredString.equals(string)) {
 				result.put(charset, Hex.encodeHexString(encodedBytes));
 			}
@@ -55,9 +55,9 @@ public class MultiEncoder {
 		} catch (DecoderException e) {
 			return Collections.emptySortedMap();
 		}
-		for (Charset charset : soundCharsets) {
-			String decodedString = new String(decodedBytes, charset);
-			byte[] restoredBytes = decodedString.getBytes(charset);
+		for (var charset : soundCharsets) {
+			var decodedString = new String(decodedBytes, charset);
+			var restoredBytes = decodedString.getBytes(charset);
 			if (Arrays.equals(restoredBytes, decodedBytes)) {
 				result.put(charset, decodedString);
 			}

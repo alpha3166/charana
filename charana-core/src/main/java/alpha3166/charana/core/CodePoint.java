@@ -26,12 +26,12 @@ public class CodePoint {
 	}
 
 	public String getHex() {
-		return String.format("U+%04X", value);
+		return "U+%04X".formatted(value);
 	}
 
 	public String getName() {
-		String name = nameDb.getName(value);
-		String alias = aliasDb.getAlias(value);
+		var name = nameDb.getName(value);
+		var alias = aliasDb.getAlias(value);
 		if (name != null && alias == null) {
 			return name;
 		}
@@ -52,7 +52,7 @@ public class CodePoint {
 		if (!(obj instanceof CodePoint)) {
 			return false;
 		}
-		CodePoint other = (CodePoint) obj;
+		var other = (CodePoint) obj;
 		return other.value == this.value;
 	}
 
@@ -67,13 +67,13 @@ public class CodePoint {
 	}
 
 	public static List<CodePoint> parse(String codePointSequence) {
-		String[] tokens = codePointSequence.trim().replaceFirst("<(.*)>", "$1").split("[ ,]+");
+		var tokens = codePointSequence.trim().replaceFirst("<(.*)>", "$1").split("[ ,]+");
 		if (tokens.length == 0) {
 			return Collections.emptyList();
 		}
 		List<CodePoint> result = new ArrayList<>();
 		for (String token : tokens) {
-			String hexString = token.replaceFirst("^U\\+", "");
+			var hexString = token.replaceFirst("^U\\+", "");
 			int codePoint;
 			try {
 				codePoint = Integer.parseInt(hexString, 16);
@@ -89,9 +89,7 @@ public class CodePoint {
 	}
 
 	public static String format(List<CodePoint> codePoints) {
-		String result = codePoints.stream()
-				.map(c -> c.getHex())
-				.collect(Collectors.joining(", "));
+		var result = codePoints.stream().map(c -> c.getHex()).collect(Collectors.joining(", "));
 		if (codePoints.size() > 1) {
 			return "<" + result + ">";
 		}
@@ -99,16 +97,11 @@ public class CodePoint {
 	}
 
 	public static List<CodePoint> decompose(String string) {
-		return string.codePoints()
-				.boxed()
-				.map(CodePoint::new)
-				.collect(Collectors.toList());
+		return string.codePoints().boxed().map(CodePoint::new).collect(Collectors.toList());
 	}
 
 	public static String compose(List<CodePoint> codePoints) {
-		return codePoints.stream()
-				.map(c -> c.getChar())
-				.collect(Collectors.joining());
+		return codePoints.stream().map(c -> c.getChar()).collect(Collectors.joining());
 	}
 
 	public static List<CodePoint> findByName(String regex) {
@@ -118,8 +111,6 @@ public class CodePoint {
 		Set<Integer> found = new TreeSet<>();
 		found.addAll(nameDb.grep(regex));
 		found.addAll(aliasDb.grep(regex));
-		return found.stream()
-				.map(CodePoint::new)
-				.collect(Collectors.toList());
+		return found.stream().map(CodePoint::new).collect(Collectors.toList());
 	}
 }

@@ -17,7 +17,7 @@ class CodePointTest {
 		@Test
 		void ascii() {
 			// Exercise
-			CodePoint actual = new CodePoint(0x41);
+			var actual = new CodePoint(0x41);
 			// Verify
 			assertEquals(0x41, actual.getValue());
 			assertEquals("A", actual.getChar());
@@ -30,7 +30,7 @@ class CodePointTest {
 		@Test
 		void latin1() {
 			// Exercise
-			CodePoint actual = new CodePoint(0x108);
+			var actual = new CodePoint(0x108);
 			// Verify
 			assertEquals(0x108, actual.getValue());
 			assertEquals("Ĉ", actual.getChar());
@@ -43,7 +43,7 @@ class CodePointTest {
 		@Test
 		void ideograph() {
 			// Exercise
-			CodePoint actual = new CodePoint(0x6F22);
+			var actual = new CodePoint(0x6F22);
 			// Verify
 			assertEquals(0x6F22, actual.getValue());
 			assertEquals("漢", actual.getChar());
@@ -56,7 +56,7 @@ class CodePointTest {
 		@Test
 		void sip() {
 			// Exercise
-			CodePoint actual = new CodePoint(0x20BB7);
+			var actual = new CodePoint(0x20BB7);
 			// Verify
 			assertEquals(0x20BB7, actual.getValue());
 			assertEquals("𠮷", actual.getChar());
@@ -69,7 +69,7 @@ class CodePointTest {
 		@Test
 		void control() {
 			// Exercise
-			CodePoint actual = new CodePoint(0x9);
+			var actual = new CodePoint(0x9);
 			// Verify
 			assertEquals(0x9, actual.getValue());
 			assertEquals("\t", actual.getChar());
@@ -82,7 +82,7 @@ class CodePointTest {
 		@Test
 		void space() {
 			// Exercise
-			CodePoint actual = new CodePoint(0x20);
+			var actual = new CodePoint(0x20);
 			// Verify
 			assertEquals(0x20, actual.getValue());
 			assertEquals(" ", actual.getChar());
@@ -95,7 +95,7 @@ class CodePointTest {
 		@Test
 		void nonChar() {
 			// Exercise
-			CodePoint actual = new CodePoint(0x10FFFF);
+			var actual = new CodePoint(0x10FFFF);
 			// Verify
 			assertEquals(0x10FFFF, actual.getValue());
 			assertEquals("\uDBFF\uDFFF", actual.getChar());
@@ -109,7 +109,7 @@ class CodePointTest {
 	@Test
 	void testEquals() {
 		// Setup
-		CodePoint sut = new CodePoint(0x41);
+		var sut = new CodePoint(0x41);
 		// Exercise & Verify
 		assertFalse(sut.equals(null));
 		assertFalse(sut.equals(new Object()));
@@ -122,7 +122,7 @@ class CodePointTest {
 		@Test
 		void oneToken() {
 			// Exercise
-			List<CodePoint> actual = CodePoint.parse("U+6F22");
+			var actual = CodePoint.parse("U+6F22");
 			// Verify
 			List<CodePoint> expected = new ArrayList<>();
 			expected.add(new CodePoint(0x6F22));
@@ -132,7 +132,7 @@ class CodePointTest {
 		@Test
 		void smallCase() {
 			// Exercise
-			List<CodePoint> actual = CodePoint.parse("U+6f22");
+			var actual = CodePoint.parse("U+6f22");
 			// Verify
 			List<CodePoint> expected = new ArrayList<>();
 			expected.add(new CodePoint(0x6F22));
@@ -142,7 +142,7 @@ class CodePointTest {
 		@Test
 		void manyTokens() {
 			// Exercise
-			List<CodePoint> actual = CodePoint.parse("<U+9 U+41  U+108,U+6F22,,U+20BB7>");
+			var actual = CodePoint.parse("<U+9 U+41  U+108,U+6F22,,U+20BB7>");
 			// Verify
 			List<CodePoint> expected = new ArrayList<>();
 			expected.add(new CodePoint(0x9));
@@ -156,7 +156,7 @@ class CodePointTest {
 		@Test
 		void prefixlessTokens() {
 			// Exercise
-			List<CodePoint> actual = CodePoint.parse(" 9 41 108 6F22 20BB7 ");
+			var actual = CodePoint.parse(" 9 41 108 6F22 20BB7 ");
 			// Verify
 			// Verify
 			List<CodePoint> expected = new ArrayList<>();
@@ -171,7 +171,7 @@ class CodePointTest {
 		@Test
 		void emptyString() {
 			// Exercise
-			List<CodePoint> actual = CodePoint.parse("");
+			var actual = CodePoint.parse("");
 			// Verify
 			assertEquals(0, actual.size());
 		}
@@ -179,7 +179,7 @@ class CodePointTest {
 		@Test
 		void noHexString() {
 			// Exercise
-			List<CodePoint> actual = CodePoint.parse("U+6F2X");
+			var actual = CodePoint.parse("U+6F2X");
 			// Verify
 			assertEquals(0, actual.size());
 		}
@@ -187,7 +187,7 @@ class CodePointTest {
 		@Test
 		void tooLargeCodePoint() {
 			// Exercise
-			List<CodePoint> actual = CodePoint.parse("U+110000");
+			var actual = CodePoint.parse("U+110000");
 			// Verify
 			assertEquals(0, actual.size());
 		}
@@ -201,7 +201,7 @@ class CodePointTest {
 			List<CodePoint> list = new ArrayList<>();
 			list.add(new CodePoint(0x41));
 			// Exercise
-			String actual = CodePoint.format(list);
+			var actual = CodePoint.format(list);
 			// Verify
 			assertEquals("U+0041", actual);
 		}
@@ -216,7 +216,7 @@ class CodePointTest {
 			list.add(new CodePoint(0x6F22));
 			list.add(new CodePoint(0x20BB7));
 			// Exercise
-			String actual = CodePoint.format(list);
+			var actual = CodePoint.format(list);
 			// Verify
 			assertEquals("<U+0009, U+0041, U+0108, U+6F22, U+20BB7>", actual);
 		}
@@ -241,7 +241,7 @@ class CodePointTest {
 		@Test
 		void emptyString() {
 			// Exercise
-			List<CodePoint> actual = CodePoint.decompose("");
+			var actual = CodePoint.decompose("");
 			// Verify
 			assertEquals(0, actual.size());
 		}
@@ -259,7 +259,7 @@ class CodePointTest {
 			list.add(new CodePoint(0x6F22));
 			list.add(new CodePoint(0x20BB7));
 			// Exercise
-			String actual = CodePoint.compose(list);
+			var actual = CodePoint.compose(list);
 			// Verify
 			assertEquals("\tAĈ漢𠮷", actual);
 		}
@@ -269,7 +269,7 @@ class CodePointTest {
 			// Setup
 			List<CodePoint> list = new ArrayList<>();
 			// Exercise
-			String actual = CodePoint.compose(list);
+			var actual = CodePoint.compose(list);
 			// Verify
 			assertEquals("", actual);
 		}
@@ -280,7 +280,7 @@ class CodePointTest {
 		@Test
 		void simpleWord() {
 			// Exercise
-			List<CodePoint> actual = CodePoint.findByName("calendar");
+			var actual = CodePoint.findByName("calendar");
 			// Verify
 			List<CodePoint> expected = new ArrayList<>();
 			expected.add(new CodePoint(0x1F4C5));
@@ -292,7 +292,7 @@ class CodePointTest {
 		@Test
 		void head() {
 			// Exercise
-			List<CodePoint> actual = CodePoint.findByName("^copyright");
+			var actual = CodePoint.findByName("^copyright");
 			// Verify
 			List<CodePoint> expected = new ArrayList<>();
 			expected.add(new CodePoint(0x00A9));
@@ -302,7 +302,7 @@ class CodePointTest {
 		@Test
 		void tail() {
 			// Exercise
-			List<CodePoint> actual = CodePoint.findByName("copyright$");
+			var actual = CodePoint.findByName("copyright$");
 			// Verify
 			List<CodePoint> expected = new ArrayList<>();
 			expected.add(new CodePoint(0x2117));
@@ -312,7 +312,7 @@ class CodePointTest {
 		@Test
 		void simpleWordOfAlias() {
 			// Exercise
-			List<CodePoint> actual = CodePoint.findByName("tabulation");
+			var actual = CodePoint.findByName("tabulation");
 			// Verify
 			List<CodePoint> expected = new ArrayList<>();
 			expected.add(new CodePoint(0x0009));
@@ -328,7 +328,7 @@ class CodePointTest {
 		@Test
 		void headOfAlias() {
 			// Exercise
-			List<CodePoint> actual = CodePoint.findByName("^device");
+			var actual = CodePoint.findByName("^device");
 			// Verify
 			List<CodePoint> expected = new ArrayList<>();
 			expected.add(new CodePoint(0x0011));
@@ -342,7 +342,7 @@ class CodePointTest {
 		@Test
 		void tailOfAlias() {
 			// Exercise
-			List<CodePoint> actual = CodePoint.findByName("string$");
+			var actual = CodePoint.findByName("string$");
 			// Verify
 			List<CodePoint> expected = new ArrayList<>();
 			expected.add(new CodePoint(0x0090));
@@ -353,7 +353,7 @@ class CodePointTest {
 		@Test
 		void nonAscii() {
 			// Exercise
-			List<CodePoint> actual = CodePoint.findByName("漢字");
+			var actual = CodePoint.findByName("漢字");
 			// Verify
 			assertEquals(0, actual.size());
 		}
@@ -361,7 +361,7 @@ class CodePointTest {
 		@Test
 		void emptyString() {
 			// Exercise
-			List<CodePoint> actual = CodePoint.findByName("");
+			var actual = CodePoint.findByName("");
 			// Verify
 			assertEquals(0, actual.size());
 		}

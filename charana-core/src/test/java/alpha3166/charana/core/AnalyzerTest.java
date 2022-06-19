@@ -14,7 +14,7 @@ class AnalyzerTest {
 	@Test
 	void testNull() {
 		// Exercise
-		Analyzer sut = new Analyzer(null);
+		var sut = new Analyzer(null);
 		// Verify
 		assertEquals("", sut.getString());
 		assertEquals(0, sut.getParsed().size());
@@ -32,7 +32,7 @@ class AnalyzerTest {
 	@Test
 	void testEmptyString() {
 		// Exercise
-		Analyzer sut = new Analyzer("");
+		var sut = new Analyzer("");
 		// Verify
 		assertEquals("", sut.getString());
 		assertEquals(0, sut.getParsed().size());
@@ -50,7 +50,7 @@ class AnalyzerTest {
 	@Test
 	void testString() {
 		// Exercise
-		Analyzer sut = new Analyzer("41");
+		var sut = new Analyzer("41");
 		// Verify
 		assertEquals("41", sut.getString());
 

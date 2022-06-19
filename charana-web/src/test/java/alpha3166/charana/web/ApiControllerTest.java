@@ -30,7 +30,7 @@ class ApiControllerTest {
 		// Verify
 		assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
 		assertEquals(MediaType.APPLICATION_JSON.toString(), actual.getResponse().getContentType());
-		CodePointBean[] expectedCodePoints = new CodePointBean[2];
+		var expectedCodePoints = new CodePointBean[2];
 		expectedCodePoints[0] = new CodePointBean();
 		expectedCodePoints[0].setValue(0x6F22);
 		expectedCodePoints[0].setChar("漢");
@@ -42,7 +42,7 @@ class ApiControllerTest {
 		expectedCodePoints[1].setHex("U+5B57");
 		expectedCodePoints[1].setName("CJK UNIFIED IDEOGRAPH-5B57");
 		var actualJson = actual.getResponse().getContentAsString(StandardCharsets.UTF_8);
-		CodePointBean[] actualCodePoints = new ObjectMapper().readValue(actualJson, CodePointBean[].class);
+		var actualCodePoints = new ObjectMapper().readValue(actualJson, CodePointBean[].class);
 		assertArrayEquals(expectedCodePoints, actualCodePoints);
 	}
 
@@ -53,7 +53,7 @@ class ApiControllerTest {
 		// Verify
 		assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
 		assertEquals(MediaType.APPLICATION_JSON.toString(), actual.getResponse().getContentType());
-		CodePointBean[] expectedCodePoints = new CodePointBean[2];
+		var expectedCodePoints = new CodePointBean[2];
 		expectedCodePoints[0] = new CodePointBean();
 		expectedCodePoints[0].setValue(0x6F22);
 		expectedCodePoints[0].setChar("漢");
@@ -65,7 +65,7 @@ class ApiControllerTest {
 		expectedCodePoints[1].setHex("U+5B57");
 		expectedCodePoints[1].setName("CJK UNIFIED IDEOGRAPH-5B57");
 		var actualJson = actual.getResponse().getContentAsString(StandardCharsets.UTF_8);
-		CodePointBean[] actualCodePoints = new ObjectMapper().readValue(actualJson, CodePointBean[].class);
+		var actualCodePoints = new ObjectMapper().readValue(actualJson, CodePointBean[].class);
 		assertArrayEquals(expectedCodePoints, actualCodePoints);
 	}
 
@@ -76,7 +76,7 @@ class ApiControllerTest {
 		// Verify
 		assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
 		assertEquals(MediaType.APPLICATION_JSON.toString(), actual.getResponse().getContentType());
-		CodePointBean[] expectedCodePoints = new CodePointBean[3];
+		var expectedCodePoints = new CodePointBean[3];
 		expectedCodePoints[0] = new CodePointBean();
 		expectedCodePoints[0].setValue(0x1F4C5);
 		expectedCodePoints[0].setChar("📅");
@@ -93,7 +93,7 @@ class ApiControllerTest {
 		expectedCodePoints[2].setHex("U+1F5D3");
 		expectedCodePoints[2].setName("SPIRAL CALENDAR PAD");
 		var actualJson = actual.getResponse().getContentAsString(StandardCharsets.UTF_8);
-		CodePointBean[] actualCodePoints = new ObjectMapper().readValue(actualJson, CodePointBean[].class);
+		var actualCodePoints = new ObjectMapper().readValue(actualJson, CodePointBean[].class);
 		assertArrayEquals(expectedCodePoints, actualCodePoints);
 	}
 

@@ -24,7 +24,7 @@ class NameAliasesTest {
 		@Test
 		void zero() {
 			// Exercise
-			String actual = sut.getAlias(0x21);
+			var actual = sut.getAlias(0x21);
 			// Verify
 			assertNull(actual);
 		}
@@ -32,7 +32,7 @@ class NameAliasesTest {
 		@Test
 		void one() {
 			// Exercise
-			String actual = sut.getAlias(0x20);
+			var actual = sut.getAlias(0x20);
 			// Verify
 			assertEquals("SP", actual);
 		}
@@ -40,7 +40,7 @@ class NameAliasesTest {
 		@Test
 		void many() {
 			// Exercise
-			String actual = sut.getAlias(0x9);
+			var actual = sut.getAlias(0x9);
 			// Verify
 			assertEquals("CHARACTER TABULATION, HORIZONTAL TABULATION, HT, TAB", actual);
 		}
@@ -51,7 +51,7 @@ class NameAliasesTest {
 		@Test
 		void simpleWord() {
 			// Exercise
-			List<Integer> actual = sut.grep("TABULATION");
+			var actual = sut.grep("TABULATION");
 			// Verify
 			List<Integer> expected = new ArrayList<>();
 			expected.add(0x9);

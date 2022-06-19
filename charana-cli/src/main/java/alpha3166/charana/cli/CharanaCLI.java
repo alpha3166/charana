@@ -1,9 +1,7 @@
 package alpha3166.charana.cli;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import alpha3166.charana.core.CodePoint;
 import alpha3166.charana.core.MultiEncoder;
@@ -35,7 +33,7 @@ public class CharanaCLI {
 
 	static List<String> findByName(String string) {
 		List<String> result = new ArrayList<>();
-		List<CodePoint> foundByName = CodePoint.findByName(string);
+		var foundByName = CodePoint.findByName(string);
 		if (foundByName.size() > 0) {
 			result.add("Grep:");
 			for (CodePoint item : foundByName) {
@@ -48,7 +46,7 @@ public class CharanaCLI {
 
 	static List<String> parse(String string) {
 		List<String> result = new ArrayList<>();
-		List<CodePoint> parsedResult = CodePoint.parse(string);
+		var parsedResult = CodePoint.parse(string);
 		if (parsedResult.size() > 0) {
 			result.add("Parse:");
 			if (parsedResult.size() == 1) {
@@ -67,11 +65,11 @@ public class CharanaCLI {
 
 	static List<String> unescape(String string) {
 		List<String> result = new ArrayList<>();
-		Map<String, String> unescapedResult = MultiEscaper.unescape(string);
+		var unescapedResult = MultiEscaper.unescape(string);
 		if (unescapedResult.size() > 0) {
 			result.add("Unescape:");
 			for (String type : unescapedResult.keySet()) {
-				result.add(String.format("  %s: %s", type, unescapedResult.get(type)));
+				result.add("  %s: %s".formatted(type, unescapedResult.get(type)));
 			}
 			result.add("");
 		}
@@ -80,11 +78,11 @@ public class CharanaCLI {
 
 	static List<String> decode(String string) {
 		List<String> result = new ArrayList<>();
-		Map<Charset, String> decodedResult = MultiEncoder.decode(string);
+		var decodedResult = MultiEncoder.decode(string);
 		if (decodedResult.size() > 0) {
 			result.add("Decode:");
-			for (Charset charset : decodedResult.keySet()) {
-				result.add(String.format("  %s: %s", charset.name(), decodedResult.get(charset)));
+			for (var charset : decodedResult.keySet()) {
+				result.add("  %s: %s".formatted(charset.name(), decodedResult.get(charset)));
 			}
 			result.add("");
 		}
@@ -93,13 +91,13 @@ public class CharanaCLI {
 
 	static List<String> decompose(String string) {
 		List<String> result = new ArrayList<>();
-		List<CodePoint> decomposedResult = CodePoint.decompose(string);
+		var decomposedResult = CodePoint.decompose(string);
 		if (decomposedResult.size() > 0) {
 			result.add("Decompose:");
 			if (decomposedResult.size() > 1) {
 				result.add("  - " + CodePoint.format(decomposedResult));
 			}
-			for (CodePoint item : CodePoint.decompose(string)) {
+			for (var item : CodePoint.decompose(string)) {
 				result.add("  - " + item);
 			}
 			result.add("");
@@ -109,11 +107,11 @@ public class CharanaCLI {
 
 	static List<String> escape(String string) {
 		List<String> result = new ArrayList<>();
-		Map<String, String> escapedResult = MultiEscaper.escape(string);
+		var escapedResult = MultiEscaper.escape(string);
 		if (escapedResult.size() > 0) {
 			result.add("Escape:");
-			for (String type : escapedResult.keySet()) {
-				result.add(String.format("  %s: %s", type, escapedResult.get(type)));
+			for (var type : escapedResult.keySet()) {
+				result.add("  %s: %s".formatted(type, escapedResult.get(type)));
 			}
 			result.add("");
 		}
@@ -122,11 +120,11 @@ public class CharanaCLI {
 
 	static List<String> encode(String string) {
 		List<String> result = new ArrayList<>();
-		Map<Charset, String> encodedResult = MultiEncoder.encode(string);
+		var encodedResult = MultiEncoder.encode(string);
 		if (encodedResult.size() > 0) {
 			result.add("Encode:");
-			for (Charset charset : encodedResult.keySet()) {
-				result.add(String.format("  %s: %s", charset.name(), encodedResult.get(charset)));
+			for (var charset : encodedResult.keySet()) {
+				result.add("  %s: %s".formatted(charset.name(), encodedResult.get(charset)));
 			}
 			result.add("");
 		}

@@ -51,6 +51,6 @@ public class CodePointBean {
 
 	@Override
 	public String toString() {
-		return String.format("%s: %s %s (%d)", character, hex, name, value);
+		return "%s: %s %s (%d)".formatted(character, hex, name, value);
 	}
 }

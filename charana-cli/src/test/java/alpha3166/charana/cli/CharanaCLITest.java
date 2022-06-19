@@ -16,7 +16,7 @@ class CharanaCLITest {
 		@Test
 		void normal() {
 			// Exercise
-			List<String> actual = CharanaCLI.analyze("漢字");
+			var actual = CharanaCLI.analyze("漢字");
 			// Verify
 			assertEquals("Subject: 漢字", actual.get(0));
 			assertEquals("", actual.get(1));
@@ -25,7 +25,7 @@ class CharanaCLITest {
 		@Test
 		void empty() {
 			// Exercise
-			List<String> actual = CharanaCLI.analyze("");
+			var actual = CharanaCLI.analyze("");
 			// Verify
 			assertEquals("Subject: ", actual.get(0));
 			assertEquals("", actual.get(1));
@@ -37,7 +37,7 @@ class CharanaCLITest {
 		@Test
 		void found() {
 			// Exercise
-			List<String> actual = CharanaCLI.findByName("calendar");
+			var actual = CharanaCLI.findByName("calendar");
 			// Verify
 			List<String> expected = new ArrayList<>();
 			expected.add("Grep:");
@@ -51,7 +51,7 @@ class CharanaCLITest {
 		@Test
 		void notFound() {
 			// Exercise
-			List<String> actual = CharanaCLI.findByName("XXX");
+			var actual = CharanaCLI.findByName("XXX");
 			// Verify
 			assertEquals(0, actual.size());
 		}
@@ -62,7 +62,7 @@ class CharanaCLITest {
 		@Test
 		void oneChar() {
 			// Exercise
-			List<String> actual = CharanaCLI.parse("U+6F22");
+			var actual = CharanaCLI.parse("U+6F22");
 			// Verify
 			List<String> expected = new ArrayList<>();
 			expected.add("Parse:");
@@ -74,7 +74,7 @@ class CharanaCLITest {
 		@Test
 		void sequence() {
 			// Exercise
-			List<String> actual = CharanaCLI.parse("<U+6F22, U+5B57>");
+			var actual = CharanaCLI.parse("<U+6F22, U+5B57>");
 			// Verify
 			List<String> expected = new ArrayList<>();
 			expected.add("Parse:");
@@ -89,7 +89,7 @@ class CharanaCLITest {
 		@Test
 		void notApplicable() {
 			// Exercise
-			List<String> actual = CharanaCLI.parse("XXX");
+			var actual = CharanaCLI.parse("XXX");
 			// Verify
 			assertEquals(0, actual.size());
 		}
@@ -100,7 +100,7 @@ class CharanaCLITest {
 		@Test
 		void applicable() {
 			// Exercise
-			List<String> actual = CharanaCLI.unescape("&#x6F22;&#x5B57;");
+			var actual = CharanaCLI.unescape("&#x6F22;&#x5B57;");
 			// Verify
 			List<String> expected = new ArrayList<>();
 			expected.add("Unescape:");
@@ -114,7 +114,7 @@ class CharanaCLITest {
 		@Test
 		void notApplicable() {
 			// Exercise
-			List<String> actual = CharanaCLI.unescape("XXX");
+			var actual = CharanaCLI.unescape("XXX");
 			// Verify
 			assertEquals(0, actual.size());
 		}
@@ -125,7 +125,7 @@ class CharanaCLITest {
 		@Test
 		void applicable() {
 			// Exercise
-			List<String> actual = CharanaCLI.decode("e6bca2e5ad97");
+			var actual = CharanaCLI.decode("e6bca2e5ad97");
 			// Verify
 			assertEquals("Decode:", actual.get(0));
 			assertTrue(actual.contains("  UTF-8: 漢字"));
@@ -135,7 +135,7 @@ class CharanaCLITest {
 		@Test
 		void notApplicable() {
 			// Exercise
-			List<String> actual = CharanaCLI.decode("XXX");
+			var actual = CharanaCLI.decode("XXX");
 			// Verify
 			assertEquals(0, actual.size());
 		}
@@ -146,7 +146,7 @@ class CharanaCLITest {
 		@Test
 		void oneChar() {
 			// Exercise
-			List<String> actual = CharanaCLI.decompose("漢");
+			var actual = CharanaCLI.decompose("漢");
 			// Verify
 			List<String> expected = new ArrayList<>();
 			expected.add("Decompose:");
@@ -158,7 +158,7 @@ class CharanaCLITest {
 		@Test
 		void sequence() {
 			// Exercise
-			List<String> actual = CharanaCLI.decompose("漢字");
+			var actual = CharanaCLI.decompose("漢字");
 			// Verify
 			List<String> expected = new ArrayList<>();
 			expected.add("Decompose:");
@@ -172,7 +172,7 @@ class CharanaCLITest {
 		@Test
 		void empty() {
 			// Exercise
-			List<String> actual = CharanaCLI.decompose("");
+			var actual = CharanaCLI.decompose("");
 			// Verify
 			assertEquals(0, actual.size());
 		}
@@ -183,7 +183,7 @@ class CharanaCLITest {
 		@Test
 		void applicable() {
 			// Exercise
-			List<String> actual = CharanaCLI.escape("漢字");
+			var actual = CharanaCLI.escape("漢字");
 			// Verify
 			List<String> expected = new ArrayList<>();
 			expected.add("Escape:");
@@ -197,7 +197,7 @@ class CharanaCLITest {
 		@Test
 		void notApplicable() {
 			// Exercise
-			List<String> actual = CharanaCLI.escape("XXX");
+			var actual = CharanaCLI.escape("XXX");
 			// Verify
 			assertEquals(0, actual.size());
 		}
@@ -208,7 +208,7 @@ class CharanaCLITest {
 		@Test
 		void normal() {
 			// Exercise
-			List<String> actual = CharanaCLI.encode("漢字");
+			var actual = CharanaCLI.encode("漢字");
 			// Verify
 			assertEquals("Encode:", actual.get(0));
 			assertTrue(actual.contains("  EUC-JP: b4c1bbfa"));
@@ -221,7 +221,7 @@ class CharanaCLITest {
 		@Test
 		void empty() {
 			// Exercise
-			List<String> actual = CharanaCLI.encode("");
+			var actual = CharanaCLI.encode("");
 			// Verify
 			assertEquals("Encode:", actual.get(0));
 			assertEquals("", actual.get(actual.size() - 1));
