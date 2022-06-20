@@ -223,8 +223,7 @@ class CharanaCLITest {
 			// Exercise
 			var actual = CharanaCLI.encode("");
 			// Verify
-			assertEquals("Encode:", actual.get(0));
-			assertEquals("", actual.get(actual.size() - 1));
+			assertEquals(0, actual.size());
 		}
 	}
 }
