@@ -17,14 +17,20 @@
 		<h2>Grep char names with "[[${result.string}]]":</h2>
 		<th:block th:if="${result.foundByName.size()} < 1000">
 			<ul>
-				<li th:each="item : ${result.foundByName}">[[${item.toString()}]]</li>
+				<li th:each="item : ${result.foundByName}">[[${item.char}]]: <a
+					th:href="@{https://codepoints.net/{code}(code=${item.hex})}">[[${item.hex}]]</a>
+					[[${item.name}]]
+				</li>
 			</ul>
 		</th:block>
 		<th:block th:if="${result.foundByName.size() gt 1000}">
 			<div>(First 1000 of [[${result.foundByName.size()}]] code
 				points are listed.)</div>
 			<ul>
-				<li th:each="item : ${result.foundByName.subList(0, 1000)}">[[${item.toString()}]]</li>
+				<li th:each="item : ${result.foundByName.subList(0, 1000)}">[[${item.char}]]:
+					<a th:href="@{https://codepoints.net/{code}(code=${item.hex})}">[[${item.hex}]]</a>
+					[[${item.name}]]
+				</li>
 			</ul>
 		</th:block>
 	</th:block>
@@ -39,7 +45,10 @@
 			</ul>
 		</th:block>
 		<ul>
-			<li th:each="item : ${result.parsed}">[[${item.toString()}]]</li>
+			<li th:each="item : ${result.parsed}">[[${item.char}]]: <a
+				th:href="@{https://codepoints.net/{code}(code=${item.hex})}">[[${item.hex}]]</a>
+				[[${item.name}]]
+			</li>
 		</ul>
 	</th:block>
 	<th:block th:if="${result.unescaped.size() gt 0}">
@@ -66,7 +75,10 @@
 			</ul>
 		</th:block>
 		<ul>
-			<li th:each="item : ${result.decomposed}">[[${item.toString()}]]</li>
+			<li th:each="item : ${result.decomposed}">[[${item.char}]]: <a
+				th:href="@{https://codepoints.net/{code}(code=${item.hex})}">[[${item.hex}]]</a>
+				[[${item.name}]]
+			</li>
 		</ul>
 	</th:block>
 	<th:block th:if="${result.escaped.size()} > 0">
