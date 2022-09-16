@@ -3,7 +3,7 @@ services:
   ws:
     build: 
       context: ../..
-      dockerfile: docker/charana_web/Dockerfile
+      dockerfile: docker/charana-web/Dockerfile
     image: charana-web
     ports:
       - 8080:8080

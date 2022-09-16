@@ -3,5 +3,5 @@ services:
   ws:
     build: 
       context: ../..
-      dockerfile: docker/charana_cli/Dockerfile
+      dockerfile: docker/charana-cli/Dockerfile
     image: charana-cli
