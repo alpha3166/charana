@@ -12,10 +12,10 @@ To build image:
 
 To start shell:
 
-    docker run -it --rm -v $PWD/../..:/charana -w /charana charana-dev
+    docker run -it --rm -v ~/.m2:/home/me/.m2 -v $PWD/../..:/charana -w /charana charana-dev sh
 
 ## With Docker Compose
 
 To start shell:
 
-    docker compose run --rm ws
+    docker compose run --rm ws sh
