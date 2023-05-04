@@ -1,11 +1,9 @@
-version: '3'
 services:
   ws:
     build:
       context: .
       dockerfile: Dockerfile
     image: charana-dev
-    user: 1000:1000
     ports:
       - 8080:8080
     volumes:

@@ -2,7 +2,7 @@
 
 ## Setup
 
-Replace UID (`1000`) and GID (`1000`) in `Dockerfile` and `docker-compose.yml` with yours.
+Replace UID (`1000`) and GID (`1000`) in `Dockerfile` with yours.
 
 ## With Docker
 
@@ -12,10 +12,10 @@ To build image:
 
 To start shell:
 
-    docker run -it --rm -u $(id -u):$(id -g) -v $PWD/../..:/charana -w /charana charana-dev
+    docker run -it --rm -v $PWD/../..:/charana -w /charana charana-dev
 
-## With Docker-Compose
+## With Docker Compose
 
 To start shell:
 
-    docker-compose run --rm ws
+    docker compose run --rm ws

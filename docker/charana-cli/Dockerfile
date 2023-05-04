@@ -1,5 +1,5 @@
 FROM eclipse-temurin:17-alpine as builder
-RUN apk -U add maven
+RUN apk --update-cache add maven
 COPY charana-core /charana-core
 WORKDIR /charana-core
 RUN mvn install

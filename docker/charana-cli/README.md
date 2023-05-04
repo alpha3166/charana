@@ -11,8 +11,8 @@ To run:
 
     docker run -it --rm charana-cli 漢字
 
-## With Docker-Compose
+## With Docker Compose
 
 To run:
 
-    docker-compose run --rm ws 漢字
+    docker compose run --rm ws 漢字
