@@ -1,24 +1,12 @@
 {
-  "dockerComposeFile": [
-    "../docker/charana-dev/compose.yml"
-  ],
-  "service": "ws",
-  "overrideCommand": true,
-  "workspaceFolder": "/charana",
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        // Docker
-        "ms-azuretools.vscode-docker",
-        // markdownlint
-        "DavidAnson.vscode-markdownlint",
-        // Extension Pack for Java
-        "vscjava.vscode-java-pack",
-        // Dependency Analytics
-        "redhat.fabric8-analytics",
-        // XML Tools
-        "dotjoshjohnson.xml"
-      ]
+  "name": "charana",
+  "image": "mcr.microsoft.com/devcontainers/base:trixie",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "installMaven": true
     }
-  }
+  },
+  "forwardPorts": [
+    8080
+  ]
 }
