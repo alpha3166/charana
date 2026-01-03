@@ -15,15 +15,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
     - name: Set up JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v5
       with:
         distribution: 'temurin'
         java-version: '17'
-    - name: Install Core with Maven
-      run: mvn --batch-mode install --file charana-core/pom.xml
-    - name: Build CLI with Maven
-      run: mvn --batch-mode package --file charana-cli/pom.xml
-    - name: Build Web with Maven
-      run: mvn --batch-mode package --file charana-web/pom.xml
+    - name: Build with Maven
+      run: mvn --batch-mode package
