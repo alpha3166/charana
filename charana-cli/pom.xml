@@ -46,18 +46,18 @@
 						<goals>
 							<goal>single</goal>
 						</goals>
-						<configuration>
-							<archive>
-								<manifest>
-									<mainClass>alpha3166.charana.cli.CharanaCLI</mainClass>
-								</manifest>
-							</archive>
-							<descriptorRefs>
-								<descriptorRef>jar-with-dependencies</descriptorRef>
-							</descriptorRefs>
-						</configuration>
 					</execution>
 				</executions>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>alpha3166.charana.cli.CharanaCLI</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
