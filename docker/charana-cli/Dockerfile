@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-alpine as builder
+FROM eclipse-temurin:21-alpine as builder
 RUN apk --update-cache add maven
 COPY charana-core /charana-core
 WORKDIR /charana-core
@@ -7,6 +7,6 @@ COPY charana-cli /charana-cli
 WORKDIR /charana-cli
 RUN mvn package
 
-FROM eclipse-temurin:17-jre-alpine as runner
+FROM eclipse-temurin:21-jre-alpine as runner
 COPY --from=builder /charana-cli/target/charana-cli-*-jar-with-dependencies.jar /charana.jar
 ENTRYPOINT ["java", "-jar", "/charana.jar"]
